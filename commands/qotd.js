@@ -23,12 +23,6 @@ module.exports = {
             });
         }
 
-
-
-        const l = require('../utils/emotes.json').Sayu;
-        const i = Math.floor(Math.random() * l.length);
-        const v = l[i][i+1];
-
         console.log(`[Log] ${interaction.user.tag} used command: /qotd`);
         console.log(`[Log] Question: ${y}`);
 
