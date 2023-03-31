@@ -5,7 +5,7 @@ console.log(`------- Refreshing Commands -------`)
 // Yay
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
+const { Client, Collection, Events, GatewayIntentBits, ActionRowBuilder, ActivityType } = require('discord.js');
 const { token } = require('./token.json');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });``
 
@@ -36,17 +36,18 @@ client.on(Events.InteractionCreate, async interaction => {
 	} catch (error) {
 		return console.error(error);
 	}
+
 });
 
 client.once(Events.ClientReady, c => {
-	client.user.setPresence({ activities: [{ name: 'Honkai Impact 3rd' }], status: 'dnd' });
+	client.user.setPresence({ activities: [{ name: 'Heavenly Realms!', type: ActivityType.Watching }], status: 'dnd' });
 	let index = 0
 	setInterval(() => {
   		if (index === 0) {
-    		client.user.setPresence({ activities: [{ name: '/help' }], status: 'dnd' });
+    		client.user.setPresence({ activities: [{ name: 'to aq crying', type: ActivityType.Listening }], status: 'dnd' });
     		index = 1;
   		} else {
-			client.user.setPresence({ activities: [{ name: 'Honkai Impact 3rd' }], status: 'dnd' });
+			client.user.setPresence({ activities: [{ name: 'Heavenly Realms!' , type: ActivityType.Watching}], status: 'dnd' });
     		index = 0;
   		}
 		}, 30000);

@@ -10,7 +10,7 @@ module.exports = {
     .setDescription(`Make a qotd`)
     .addStringOption(option =>
         option.setName('question')
-        .setDescription('Your qotd')
+        .setDescription('Your question for the qotd')
         .setRequired(true)),
 
     async execute(interaction) {
@@ -38,7 +38,7 @@ module.exports = {
         .setDescription(`${y}`)
         .setFooter({text:`Submitted by ${interaction.user.tag}!`})
         .setTimestamp()
-        .setThumbnail('https://cdn.discordapp.com/attachments/1087569440398389369/1091291296238411796/Untitled12_20230331155154.png');
+        .setThumbnail('https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/5/53/Herrscher_of_Human_-_Ego_Fragment.png/revision/latest?cb=20220915175012');
 
         if (!interaction.member.permissions.has(PermissionFlagsBits.ManageMessages)) {
             console.log(`[Log] ${t.tag} denied to use command: /qotd`)
