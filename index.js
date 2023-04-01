@@ -44,7 +44,7 @@ client.once(Events.ClientReady, c => {
 	let index = 0
 	setInterval(() => {
   		if (index === 0) {
-    		client.user.setPresence({ activities: [{ name: 'to aq crying', type: ActivityType.Listening }], status: 'dnd' });
+    		client.user.setPresence({ activities: [{ name: 'aq crying', type: ActivityType.Listening }], status: 'dnd' });
     		index = 1;
   		} else {
 			client.user.setPresence({ activities: [{ name: 'Heavenly Realms!' , type: ActivityType.Watching}], status: 'dnd' });

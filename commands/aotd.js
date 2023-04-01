@@ -38,8 +38,8 @@ module.exports = {
 
             const aotdEmbed = new EmbedBuilder()
             .setColor('#fc6da1')
-            .setTitle(`✦ Today's top answer!`)
-            .setDescription(`Today's top answer was: **${u}**!`)
+            .setTitle(`✦ Answer of the day!`)
+            .setDescription(`**${u}**!`)
             .addFields({
                 name: 'Answered By', value: `**${o}**`
             })
