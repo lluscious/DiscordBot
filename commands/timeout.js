@@ -21,7 +21,7 @@ module.exports = {
     const g = interaction.options.getString('reason') || 'No reason provided';
     const v = interaction.options.getInteger('duration')
     const wait = require('node:timers/promises').setTimeout
-    const d = duration * 60 * 1000
+    const d = v * 60 * 1000
 
     if (!interaction.member.permissions.has(PermissionFlagsBits.KickMembers)) {
       console.log(`[Log] ${interaction.user.tag} denied to use command: /timeout`)

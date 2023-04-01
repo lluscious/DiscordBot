@@ -1,13 +1,12 @@
-// Upon Start
 console.clear();
-console.log(`------- Refreshing Commands -------`)
+console.log(`------- Loading Events -------\n`)
 
-// Yay
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Collection, Events, GatewayIntentBits, ActionRowBuilder, ActivityType } = require('discord.js');
+const { Client, Collection, Events, GatewayIntentBits, ActionRowBuilder, ActivityType, EmbedBuilder } = require('discord.js');
 const { token } = require('./token.json');
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });``
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
+module.exports = client;
 
 
 client.commands = new Collection();
@@ -23,7 +22,6 @@ for (const file of commandFiles) {
 		console.log(`[Warning] The command at ${filePath} is missing a required "data" or "execute" property.`);
 	}
 }
-  
 
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;
@@ -39,6 +37,7 @@ client.on(Events.InteractionCreate, async interaction => {
 
 });
 
+
 client.once(Events.ClientReady, c => {
 	client.user.setPresence({ activities: [{ name: 'Heavenly Realms!', type: ActivityType.Watching }], status: 'dnd' });
 	let index = 0
@@ -51,8 +50,13 @@ client.once(Events.ClientReady, c => {
     		index = 0;
   		}
 		}, 30000);
-    console.log(`[Log] Successfully logged in as ${c.user.tag}`);
-	console.log(`------- Console -------`)
+    console.log(`[Bot] Successfully logged in as ${c.user.tag}\n`);
+	console.log(`----------- Console ----------\n`)
+});
+
+const l = path.join(__dirname, 'events');
+fs.readdirSync(l).forEach(file => {
+  require(path.join(l, file));
 });
 
 require('./deploy')
