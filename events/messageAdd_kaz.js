@@ -7,10 +7,11 @@ client.on(Events.MessageCreate, (message) => {
     const p = ['kazuya', 'kazu', 'zooted', 'kaz']
 
     if (message.author.bot || !message.guild) {
-      return;
-    }
+    return;
+  }
 
-    if (p.some(word => message.content.toLowerCase().includes(word))) {
+  const content = message.content.toLowerCase();
+  if (p.includes(content)) {
       message.reply('STAN THE KAZUYA :100:');
     }
   });

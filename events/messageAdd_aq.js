@@ -7,11 +7,11 @@ client.on(Events.MessageCreate, (message) => {
     const p = ['lyuu', 'aq']
 
     if (message.author.bot || !message.guild) {
-      return;
-    }
+    return;
+  }
 
-    if (p.some(word => message.content.toLowerCase().includes(word))) {
-      message.reply('STAN LYUU RN!!!!!!!!!!!!!!!');
-    }
-  });
-  
+  const content = message.content.toLowerCase();
+  if (p.includes(content)) {
+    message.reply('STAN LYUU RN!!!!!');
+  }
+});
