@@ -22,7 +22,6 @@ module.exports = {
       return interaction.reply({ content: '**You do not have permission to ban members.**', ephemeral: true });
     }
 
-    await interaction.guild.members.ban(bannedUser, { reason });
     console.log(`[Log] ${interaction.user.tag} used command: /ban`)
     console.log(`[Log] Banned user: ${bannedUser.tag}`)
     console.log(`[Log] Responsible: ${interaction.user.tag}`)
@@ -43,6 +42,7 @@ module.exports = {
       .addFields({name: 'Reason', value: reason});
     try {
       await bannedUser.send({ embeds: [bannedEmbed] });
+      await interaction.guild.members.ban(bannedUser, { reason });
     } catch (error) {
       console.error(`[Error] Could not send DM to banned user ${bannedUser.tag}.`);
     }
