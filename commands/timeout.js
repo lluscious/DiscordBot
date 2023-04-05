@@ -23,9 +23,9 @@ module.exports = {
     const wait = require('node:timers/promises').setTimeout
     const d = v * 60 * 1000
 
-    if (!interaction.member.permissions.has(PermissionFlagsBits.KickMembers)) {
+    if (!interaction.member.permissions.has(PermissionFlagsBits.ModerateMembers)) {
       console.log(`[Log] ${interaction.user.tag} denied to use command: /timeout`)
-      return interaction.reply({ content: '**You do not have permission to timeout members.**', ephemeral: true });
+      return interaction.reply({ content: 'You do not have permission to timeout members.', ephemeral: true });
     }
 
     await r.timeout(d, g)
