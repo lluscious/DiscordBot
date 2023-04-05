@@ -4,7 +4,7 @@ const client = require('../index');
 console.log('[Event] Loaded guildMemberBoost.js')
 
 client.on(Events.GuildMemberUpdate, (oldMember, newMember) => {
-    const i = client.channels.cache.get('1091651997519859832');
+    const i = client.channels.cache.get('1092887356387889152');
     
         // Boosted Embed
         const bembed = new EmbedBuilder()
