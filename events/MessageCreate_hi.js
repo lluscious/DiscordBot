@@ -1,7 +1,7 @@
 const { Events } = require('discord.js')
 const client = require('../index');
 
-console.log('[Event] Loaded messageAdd_hi.js')
+console.log('[Event] Loaded MessageCreate_hi.js')
 
 client.on(Events.MessageCreate, (message) => {
   const keywords = ['hello', 'hi', 'hey', 'yo', 'heya'];

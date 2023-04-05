@@ -1,7 +1,7 @@
 const { Events } = require('discord.js')
 const client = require('../index');
 
-console.log('[Event] Loaded messageAdd_aq.js')
+console.log('[Event] Loaded MessageCreate_aq.js')
 
 client.on(Events.MessageCreate, (message) => {
     const p = ['lyuu', 'aq']
