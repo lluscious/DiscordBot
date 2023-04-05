@@ -7,7 +7,7 @@ module.exports = {
       option.setName('user')
       .setDescription('Select a user')
       .setRequired(true))
-    .addIntegerOption(option =>
+    .addStringOption(option =>
       option.setName('duration')
       .setDescription('Duration of timeout in minutes')
       .setRequired(true))
@@ -19,7 +19,7 @@ module.exports = {
     const t = interaction.options.getUser('user')
     const r = interaction.options.getMember('user')
     const g = interaction.options.getString('reason') || 'No reason provided';
-    const v = interaction.options.getInteger('duration')
+    const v = interaction.options.getString('duration')
     const wait = require('node:timers/promises').setTimeout
     const d = v * 60 * 1000
 
