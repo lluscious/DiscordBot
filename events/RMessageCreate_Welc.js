@@ -1,7 +1,7 @@
 const { Events, EmbedBuilder } = require('discord.js')
 const client = require('../index');
 
-console.log('[Event] Loaded RMessageCreate_Welc.js\n')
+console.log('[Event] Loaded RMessageCreate_Welc.js')
 
 client.on(Events.MessageCreate, (message) => {
   const p = ['welcome'];

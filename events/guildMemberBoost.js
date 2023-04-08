@@ -1,7 +1,7 @@
 const { EmbedBuilder, Events } = require('discord.js')
 const client = require('../index');
 
-console.log('[Event] Loaded guildMemberBoost.js')
+console.log('[Event] Loaded guildMemberBoost.js\n')
 
 client.on(Events.GuildMemberUpdate, (oldMember, newMember) => {
     const i = client.channels.cache.get('1092887356387889152');
