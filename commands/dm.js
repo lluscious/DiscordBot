@@ -26,13 +26,12 @@ module.exports = {
     const p = interaction.options.getString('hide_user')
     const t = interaction.user
 
-    console.log(`[Log] ${interaction.user.tag} used command: /dm`)
-    console.log(`[Log] User: ${u.tag}`)
-    console.log(`[Log] Message: ${f}`)
+    console.log(`[Command_Handling] User: ${u.tag}`)
+    console.log(`[Command_Handling] Message: ${f}`)
 
     if (!interaction.member.permissions.has(PermissionFlagsBits.ManageMessages)) {
-      console.log(`[Log] ${t.tag} denied to use command: /dm`)
-      return interaction.reply({ content: 'You do not have permission to use this command.', ephemeral: true });
+      console.log(`[Command_Handling] ${t.tag} denied to use command: /dm`)
+      return interaction.reply({ content: 'You do not have permission to use this command!', ephemeral: true });
     }
 
       const gembed = new EmbedBuilder()

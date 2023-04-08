@@ -33,8 +33,7 @@ module.exports = {
             }
             const u = p.content;
             const o = p.author;
-            console.log(`[Log] ${interaction.user.tag} used command: /set_aotd`);
-            console.log(`[Log] Answer: ${u}`);
+            console.log(`[Log] AOTD: ${u}`);
 
             const aotdEmbed = new EmbedBuilder()
             .setColor('#fc6da1')
@@ -50,7 +49,7 @@ module.exports = {
             .setTimestamp();
 
             if (!interaction.member.permissions.has(PermissionFlagsBits.ManageMessages)) {
-                console.log(`[Log] ${t.tag} denied to use command: /set_aotd`)
+                console.log(`[Command_Handling] ${t.tag} denied to use command: /set_aotd`)
                 return interaction.reply({
                     content: 'You do not have permission to use this command.', ephemeral: true
                 });

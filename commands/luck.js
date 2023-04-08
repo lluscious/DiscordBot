@@ -17,7 +17,6 @@ module.exports = {
             .setColor("#fc6da1")
             .setDescription(`**${user.tag} is ${luck}% lucky**`)
             .setThumbnail(avatarURL)
-    console.log(`[Log] ${interaction.user.tag} used command: /luckiness`) 
     if (luck >= 80) {
         return interaction.reply({ content: "That's pretty lucky!", embeds: [luckEmbed]});
       } else if (luck >= 50 && luck <= 79) {

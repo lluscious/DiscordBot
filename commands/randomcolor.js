@@ -12,7 +12,6 @@ module.exports = {
             .setColor(color)
             .setDescription(`Color: ${color}`)
             .setImage(img)
-        console.log(`[Log] ${interaction.user.tag} used command: /random_color`)
         return interaction.reply({ embeds: [colorEmbed] })
     }
 }

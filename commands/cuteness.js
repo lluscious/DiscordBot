@@ -17,7 +17,6 @@ module.exports = {
             .setColor("#fc6da1")
             .setDescription(`**${user.tag} is ${cute}% cute!**`)
 			.setThumbnail(avatarURL)
-        console.log(`[Log] ${interaction.user.tag} used command: /cuteness`) 
         return interaction.reply({ embeds: [cuteEmbed] })
     }
 }

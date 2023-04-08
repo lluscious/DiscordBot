@@ -21,9 +21,6 @@ module.exports = {
         const i = Math.floor(Math.random() * l.length);
         const v = l[i][i+1];
       
-        console.log(`[Log] ${interaction.user.tag} used command: /confess`);
-        console.log(`[Log] Confession: ${y}`);
-      
         const confessEmbed = new EmbedBuilder()
           .setColor('#fc6da1')
           .setTitle(`✦ Someone's Confession`)

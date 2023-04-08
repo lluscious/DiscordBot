@@ -18,13 +18,12 @@ module.exports = {
     const reason = interaction.options.getString('reason') || 'No reason provided';
 
     if (!interaction.member.permissions.has(PermissionFlagsBits.BanMembers)) {
-      console.log(`[Log] ${interaction.user.tag} denied to use command: /ban`)
-      return interaction.reply({ content: '**You do not have permission to ban members.**', ephemeral: true });
+      console.log(`[Command_Handling] ${interaction.user.tag} denied to use command: /ban`)
+      return interaction.reply({ content: 'You do not have permission to use this command!', ephemeral: true });
     }
 
-    console.log(`[Log] ${interaction.user.tag} used command: /ban`)
-    console.log(`[Log] Banned user: ${bannedUser.tag}`)
-    console.log(`[Log] Responsible: ${interaction.user.tag}`)
+    console.log(`[Command_Handling] Banned user: ${bannedUser.tag}`)
+    console.log(`[Command_Handling] Responsible: ${interaction.user.tag}`)
 
     const banEmbed = new EmbedBuilder()
       .setColor('#fc6da1')

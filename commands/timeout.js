@@ -24,15 +24,14 @@ module.exports = {
     const d = v * 60 * 1000
 
     if (!interaction.member.permissions.has(PermissionFlagsBits.ModerateMembers)) {
-      console.log(`[Log] ${interaction.user.tag} denied to use command: /timeout`)
-      return interaction.reply({ content: 'You do not have permission to timeout members.', ephemeral: true });
+      console.log(`[Command_Handling] ${interaction.user.tag} denied to use command: /timeout`)
+      return interaction.reply({ content: 'You do not have permission to use this command!', ephemeral: true });
     }
 
     await r.timeout(d, g)
-    console.log(`[Log] ${interaction.user.tag} used command: /timeout`)
-    console.log(`[Log] User: ${t.tag}`)
-    console.log(`[Log] Duration: ${v}m`)
-    console.log(`[Log] Responsible: ${interaction.user.tag}`)
+    console.log(`[Command_Handling] User: ${t.tag}`)
+    console.log(`[Command_Handling] Duration: ${v}m`)
+    console.log(`[Command_Handling] Responsible: ${interaction.user.tag}`)
 
     const embedf = new EmbedBuilder()
     .setColor('#fc6da1')

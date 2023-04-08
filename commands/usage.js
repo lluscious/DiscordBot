@@ -35,8 +35,6 @@ module.exports = {
         value: up,
         inline: false,
       });
-
-    console.log(`[Log] ${interaction.user.tag} used command: /usage`);
     return interaction.reply({ embeds: [HelpEmbed] });
   },
 };

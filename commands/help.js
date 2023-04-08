@@ -20,7 +20,6 @@ module.exports = {
             .addFields({name: '/confess', value: 'Confess to something without anyone knowing its you.', inline: true})
             .addFields({name: '/luck', value: 'Measure your luck!', inline: true})
             .addFields({name: '/usage', value: 'Show bot usage.', inline: true})
-        console.log(`[Log] ${interaction.user.tag} used command: /help`) 
         await interaction.deferReply();
         await wait(1000)
         return interaction.editReply({ embeds: [HelpEmbed] })

@@ -10,7 +10,7 @@ module.exports = {
                 .setRequired(true)),
     async execute(interaction) {
         const user = interaction.options.getUser('user')
-		const avatarURL = user.displayAvatarURL({ format: 'png', size: 4096 });
+		const avatarURL = user.avatarURL({ format: 'png', size: 4096 });
 		const bannerURL = user.bannerURL({ format: 'png', size: 4096 });
         const userEmbed = new EmbedBuilder()
             .setTitle("User Info")
@@ -21,7 +21,6 @@ module.exports = {
             .addFields({name: 'ID', value: `**${user.id}**`, inline: false})
 	    .setThumbnail(avatarURL)
 	    .setImage(bannerURL)
-	console.log(`[Log] ${interaction.user.tag} used command: /user`)
         return interaction.reply({ embeds: [userEmbed] })
     }
 }

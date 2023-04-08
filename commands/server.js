@@ -17,7 +17,6 @@ module.exports = {
             .addFields({ name: 'Member Count', value: `**${d.memberCount}**` })
             .addFields({ name: 'Creation Date', value: `**${d.createdAt.toDateString()}**` })
             .setThumbnail(d.iconURL({ dynamic: true }))
-        console.log(`[Log] ${interaction.user.tag} used command: /server`)
         await interaction.reply({ embeds: [h] });
     },
 };

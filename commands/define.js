@@ -12,7 +12,6 @@ module.exports = {
           .setRequired(true)),
           async execute(interaction) {
             const i = interaction.options.getString('word');
-            console.log(`[Log] ${interaction.user.tag} used command: /define`)
             try {
               const g = `https://api.urbandictionary.com/v0/define?term=${i}`;
               const r = await axios.get(g);

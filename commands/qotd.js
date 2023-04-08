@@ -23,8 +23,7 @@ module.exports = {
             });
         }
 
-        console.log(`[Log] ${interaction.user.tag} used command: /qotd`);
-        console.log(`[Log] Question: ${y}`);
+        console.log(`[Command_Handling] QOTD: ${y}`);
 
         const qotdEmbed = new EmbedBuilder()
         .setColor('#fc6da1')
@@ -35,9 +34,9 @@ module.exports = {
         .setThumbnail('https://static.wikia.nocookie.net/honkaiimpact3_gamepedia_en/images/5/53/Herrscher_of_Human_-_Ego_Fragment.png/revision/latest?cb=20220915175012');
 
         if (!interaction.member.permissions.has(PermissionFlagsBits.ManageMessages)) {
-            console.log(`[Log] ${t.tag} denied to use command: /qotd`)
+            console.log(`[Command_Handling] ${t.tag} denied to use command: /qotd`)
             return interaction.reply({
-                content: 'You do not have permission to use this command.', ephemeral: true
+                content: 'You do not have permission to use this command!', ephemeral: true
             });
         } else {
 

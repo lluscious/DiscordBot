@@ -16,7 +16,6 @@ module.exports = {
         { name: 'TW/HK/MO', value: '4' },
     )),
   async execute(interaction) {
-    console.log(`[Log] ${interaction.user.tag} used command: /random_UID `)
 
     const s = interaction.options.getString('server')
     const uid = Math.floor(Math.random() * 99999999);

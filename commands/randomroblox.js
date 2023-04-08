@@ -6,7 +6,6 @@ module.exports = {
     .setName('random_game')
     .setDescription('Gives you a random Roblox game'),
   async execute(interaction) {
-    console.log(`[Log] ${interaction.user.tag} used command: /random_game `)
     const randomId = Math.floor(Math.random() * 999999999);
     const gameLink = `https://www.roblox.com/games/${randomId}`;
     await interaction.deferReply();
