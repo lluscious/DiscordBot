@@ -35,7 +35,7 @@ module.exports = {
     }
 
       const gembed = new EmbedBuilder()
-        .setColor('#fc6da1')
+        .setColor('#ffc17a')
         .setTitle('✦ New Message!')
         .setDescription(`**You have recieved a new message from ${interaction.guild.name}!**\n\n${f}\n\n**If you have any questions or issues please open a ticket.**`)
         .setThumbnail(interaction.guild.iconURL({ dynamic: true }))
@@ -45,7 +45,7 @@ module.exports = {
         if (p == 'true') {
           await interaction.deferReply({ ephemeral: true})
           await wait(1000)
-          gembed.setFooter({ text: `Sender: HR's Staff Team`});
+          gembed.setFooter({ text: `Sender: Kazu's Staff Team!`});
           interaction.editReply({content: `Successfully sent message to ${u.tag}`, ephemeral: true})
           await u.send({ embeds: [gembed] });
         } else if (u.id == t.id) {

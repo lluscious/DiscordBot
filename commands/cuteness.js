@@ -14,7 +14,7 @@ module.exports = {
         const cute = Math.floor(Math.random() * 102);
         const cuteEmbed = new EmbedBuilder()
             .setTitle(`${user.tag}'s cuteness rate!`)
-            .setColor("#fc6da1")
+            .setColor("#ffc17a")
             .setDescription(`**${user.tag} is ${cute}% cute!**`)
 			.setThumbnail(avatarURL)
         return interaction.reply({ embeds: [cuteEmbed] })

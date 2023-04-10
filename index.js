@@ -39,14 +39,14 @@ client.on(Events.InteractionCreate, async interaction => {
 
 
 client.once(Events.ClientReady, c => {
-	client.user.setPresence({ activities: [{ name: 'Heavenly Realms!', type: ActivityType.Watching }], status: 'dnd' });
+	client.user.setPresence({ activities: [{ name: '/Kazu!', type: ActivityType.Watching }], status: 'dnd' });
 	let index = 0
 	setInterval(() => {
   		if (index === 0) {
-    		client.user.setPresence({ activities: [{ name: 'aq crying', type: ActivityType.Listening }], status: 'dnd' });
+    		client.user.setPresence({ activities: [{ name: 'lyuu crying', type: ActivityType.Listening }], status: 'dnd' });
     		index = 1;
   		} else {
-			client.user.setPresence({ activities: [{ name: 'Heavenly Realms!' , type: ActivityType.Watching}], status: 'dnd' });
+			client.user.setPresence({ activities: [{ name: '/Kazu!' , type: ActivityType.Watching}], status: 'dnd' });
     		index = 0;
   		}
 		}, 30000);

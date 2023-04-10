@@ -27,11 +27,9 @@ module.exports = {
               const y = f.thumbs_down.toString();      
               const s = f.definition.replace(/\[(\w+)\]/g,'$1');
               const m = new EmbedBuilder()
-                .setColor('#fc6da1')
+                .setColor('#ffc17a')
                 .setTitle(`♡ Urban Dictionary : **${i}**`)
                 .setURL(`https://www.urbandictionary.com/define.php?term=${encodeURIComponent(i)}`)
-                .setThumbnail('https://upload-os-bbs.hoyolab.com/upload/2022/08/24/0a76d89daea57138c667ee18de9d7038_8379671153548271334.png')
-                .setFooter({text: '- Your very smart teacher: Elysia'})
                 .addFields({name: '⬆️', value: p, inline: true})
                 .addFields({name: '⬇️', value: y, inline: true})
                 .setDescription(s)

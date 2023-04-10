@@ -14,7 +14,7 @@ module.exports = {
 		const bannerURL = user.bannerURL({ format: 'png', size: 4096 });
         const userEmbed = new EmbedBuilder()
             .setTitle("User Info")
-            .setColor("#fc6da1")
+            .setColor("#ffc17a")
             .addFields({name: 'User', value: `**${user.toString()}**`, inline: false})
 	    .addFields({name: 'Full User', value: `**${user.tag}**`})
             .addFields({name: 'Join Date', value: `**${user.createdAt.toUTCString()}**`, inline: false})

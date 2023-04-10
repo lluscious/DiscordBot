@@ -17,7 +17,7 @@ module.exports = {
           return interaction.reply({ content: `Unable to find confession channel.`, ephemeral: true });
         }
       
-        const l = require('../utils/emotes.json').HoD;
+        const l = require('../../utils/emotes.json').HoD;
         const i = Math.floor(Math.random() * l.length);
         const v = l[i][i+1];
       

@@ -12,6 +12,6 @@ client.on(Events.MessageCreate, (message) => {
 
   const content = message.content.toLowerCase();
   if (keywords.includes(content)) {
-    message.reply('Hello!<:elysia_wave:1091633194685702144>');
+    message.reply('Hello!!');
   }
 });

@@ -14,7 +14,7 @@ module.exports = {
         const luck = Math.floor(Math.random() * 102);
         const luckEmbed = new EmbedBuilder()
             .setTitle(`${user.tag}'s luckiness rate!`)
-            .setColor("#fc6da1")
+            .setColor("#ffc17a")
             .setDescription(`**${user.tag} is ${luck}% lucky**`)
             .setThumbnail(avatarURL)
     if (luck >= 80) {

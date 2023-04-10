@@ -34,7 +34,7 @@ module.exports = {
     console.log(`[Command_Handling] Responsible: ${interaction.user.tag}`)
 
     const embedf = new EmbedBuilder()
-    .setColor('#fc6da1')
+    .setColor('#ffc17a')
     .setTitle('✦ User Timeout')
     .setDescription(`**${t} has been timed out for ${v} minutes**`)
     .addFields({name: 'Reason', value: g});
@@ -44,7 +44,7 @@ module.exports = {
     interaction.editReply({ embeds: [embedf], ephemeral: false });
 
     const gembed = new EmbedBuilder()
-      .setColor('#fc6da1')
+      .setColor('#ffc17a')
       .setTitle('✦ Notice!')
       .setDescription(`**You have been timed out in ${interaction.guild.name}!**.`)
       .addFields({name: 'Reason', value: g});

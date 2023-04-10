@@ -10,7 +10,7 @@ module.exports = {
         const f = d.ownerId
         const v = `<@${f}>`
         const h = new EmbedBuilder()
-            .setColor('#fc6da1')
+            .setColor('#ffc17a')
             .setTitle(`${d.name}'s info`)
             .addFields({ name: 'Owner', value: `**${v}**` })
             .addFields({ name: 'ID', value: `**${d.id}**` })

@@ -1,5 +1,5 @@
 const { REST, Routes } = require('discord.js');
-const clientId = '1086118505033764885';
+const clientId = '1094952046035222559';
 const { token } = require('./token.json')
 const fs = require('node:fs');
 const path = require('node:path');
