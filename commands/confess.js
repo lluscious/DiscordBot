@@ -10,23 +10,24 @@ module.exports = {
       .setRequired(true)),
 
       async execute(interaction) {
+        delete require.cache[require.resolve('../utils/channel_config.json')];
+        const { conf } = require('../utils/channel_config.json');
         const y = interaction.options.getString('confession');
-        const h = '1088312366128709653';
+        const h = conf;
         const t = interaction.client.channels.cache.get(h);
         if (!t) {
-          return interaction.reply({ content: `Unable to find confession channel.`, ephemeral: true });
+          return interaction.reply({ content: `Unable to find confession channel!`, ephemeral: true });
         }
       
-        const l = require('../../utils/emotes.json').HoD;
         const i = Math.floor(Math.random() * l.length);
         const v = l[i][i+1];
       
         const confessEmbed = new EmbedBuilder()
-          .setColor('#fc6da1')
-          .setTitle(`✦ Someone's Confession`)
+          .setColor('#ffc17a')
+          .setTitle(`✦ Someone's Confession. . .`)
           .setDescription(`${y}`)
           .setTimestamp()
-          .setThumbnail(v);
+          .setThumbnail("https://cdn.discordapp.com/attachments/1094488863533170878/1095003868531798116/Untitled18_20230410214316.png");
       
         try {
           await interaction.deferReply({ephemeral: true});
@@ -35,7 +36,7 @@ module.exports = {
           interaction.followUp({ content: `Your confession has been sent!`, ephemeral: true });
         } catch (error) {
           console.error(error);
-          interaction.followUp({ content: `I was unable to send a confession. Please try again later.`, ephemeral: true });
+          interaction.followUp({ content: `An error occured while executing this command.`, ephemeral: true });
         }
       }
     }      

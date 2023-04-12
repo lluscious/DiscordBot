@@ -4,7 +4,7 @@
         "Denied": "You do not have permission to use this command!"
       },
       {
-        "Error_Default": "An error occured while executing this command."
+        "Error": "An error occured while executing this command."
       }
             ]
 }

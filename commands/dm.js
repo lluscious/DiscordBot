@@ -45,7 +45,7 @@ module.exports = {
         if (p == 'true') {
           await interaction.deferReply({ ephemeral: true})
           await wait(1000)
-          gembed.setFooter({ text: `Sender: Kazu's Staff Team!`});
+          gembed.setFooter({ text: `Sender: ${interaction.guild.name}`});
           interaction.editReply({content: `Successfully sent message to ${u.tag}`, ephemeral: true})
           await u.send({ embeds: [gembed] });
         } else if (u.id == t.id) {
