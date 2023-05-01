@@ -19,9 +19,6 @@ module.exports = {
           return interaction.reply({ content: `Unable to find confession channel!`, ephemeral: true });
         }
       
-        const i = Math.floor(Math.random() * l.length);
-        const v = l[i][i+1];
-      
         const confessEmbed = new EmbedBuilder()
           .setColor('#ffc17a')
           .setTitle(`✦ Someone's Confession. . .`)
