@@ -8,8 +8,8 @@ module.exports = {
         const HelpEmbed = new EmbedBuilder()
             .setTitle("✦ My Commands")
             .setColor("#73a6ff")
-            .setImage('https://static.wikia.nocookie.net/gensin-impact/images/4/46/Namecard_Banner_Nilou_Lotus_Dance.png/revision/latest/scale-to-width-down/1000?cb=20221014113815')
-            .setThumbnail('https://upload-os-bbs.hoyolab.com/upload/2022/08/26/0/d1113c7758d375f16ef80dd46a644c1b_4753026554324219193.png?x-oss-process=image/resize,s_1000/quality,q_80/auto-orient,0/interlace,1/format,png')
+            .setImage('https://static.wikia.nocookie.net/gensin-impact/images/d/dc/Namecard_Banner_Kamisato_Ayato_Ripple.png/revision/latest/scale-to-width-down/1000?cb=20220330025030')
+            .setThumbnail('https://static.wikia.nocookie.net/gensin-impact/images/e/eb/PSE_Kamisato_Ayato.png/revision/latest?cb=20230111052315')
             .addFields({name: '/help', value: 'Display usable commands!', inline: true})
             .addFields({name: '/user', value: 'View a users information', inline: true})
             .addFields({name: '/server', value: 'View this servers information', inline: true})
@@ -21,6 +21,7 @@ module.exports = {
             .addFields({name: '/confess', value: 'Confess to something without anyone knowing its you.', inline: true})
             .addFields({name: '/luck', value: 'Measure your luck!', inline: true})
             .addFields({name: '/usage', value: 'Show bot usage.', inline: true})
+            .setFooter({text: '★ Displaying commands usable by all members only'})
         await interaction.deferReply();
         await wait(1000)
         return interaction.editReply({ embeds: [HelpEmbed] })
