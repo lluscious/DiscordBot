@@ -26,7 +26,7 @@ module.exports = {
     console.log(`[Command_Handling] Responsible: ${interaction.user.tag}`)
 
     const banEmbed = new EmbedBuilder()
-      .setColor('#ffc17a')
+      .setColor('#73a6ff')
       .setTitle('✦ User Banned')
       .setDescription(`**${bannedUser.tag} has been banned from the server.**`)
       .addFields({name: 'Reason', value: reason});
@@ -35,7 +35,7 @@ module.exports = {
     interaction.editReply({ embeds: [banEmbed], ephemeral: false });
 
     const bannedEmbed = new EmbedBuilder()
-      .setColor('#ffc17a')
+      .setColor('#73a6ff')
       .setTitle('✦ Banned!')
       .setDescription(`You have been banned from **${interaction.guild.name}!**.`)
       .addFields({name: 'Reason', value: reason});

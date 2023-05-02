@@ -27,7 +27,7 @@ module.exports = {
               const y = f.thumbs_down.toString();      
               const s = f.definition.replace(/\[(\w+)\]/g,'$1');
               const m = new EmbedBuilder()
-                .setColor('#ffc17a')
+                .setColor('#73a6ff')
                 .setTitle(`♡ Urban Dictionary : **${i}**`)
                 .setURL(`https://www.urbandictionary.com/define.php?term=${encodeURIComponent(i)}`)
                 .addFields({name: '⬆️', value: p, inline: true})

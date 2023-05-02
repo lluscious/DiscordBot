@@ -15,7 +15,7 @@ module.exports = {
         const o = y.rateLimitPerUser;
         const d = interaction.guild;
         const h = new EmbedBuilder()
-            .setColor('#ffc17a')
+            .setColor('#73a6ff')
             .setTitle(`★ #${y.name}`)
             .addFields({ name: 'Channel ID', value: `**${y.id}**` })
             .addFields({ name: 'Creation Date', value: `**${y.createdAt.toDateString()}**` })

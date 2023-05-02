@@ -20,7 +20,7 @@ module.exports = {
         }
       
         const confessEmbed = new EmbedBuilder()
-          .setColor('#ffc17a')
+          .setColor('#73a6ff')
           .setTitle(`✦ Someone's Confession. . .`)
           .setDescription(`${y}`)
           .setTimestamp()

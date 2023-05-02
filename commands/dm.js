@@ -35,12 +35,24 @@ module.exports = {
     }
 
       const gembed = new EmbedBuilder()
-        .setColor('#ffc17a')
+        .setColor('#73a6ff')
         .setTitle('✦ New Message!')
         .setDescription(`**You have recieved a new message from ${interaction.guild.name}!**\n\n${f}\n\n**If you have any questions or issues please open a ticket.**`)
         .setThumbnail(interaction.guild.iconURL({ dynamic: true }))
         .setTimestamp()
         .setFooter({ text: `Sender: ${t.tag}`});
+
+        const r = new EmbedBuilder()
+        .setColor('#73a6ff')
+        .setTitle('✦ Modlog : DM Command')
+        .setDescription(`Sender: **${interaction.user.tag}**\n\nMessage: **${f}**\n\nSent to: **${u.tag}**`)
+        .setTimestamp();
+
+        delete require.cache[require.resolve('../utils/channel_config.json')];
+        const { modlog } = require('../utils/channel_config.json');
+        const h = modlog;
+        const o = interaction.client.channels.cache.get(h);
+        o.send({embeds: [r]})
 
         if (p == 'true') {
           await interaction.deferReply({ ephemeral: true})
@@ -57,7 +69,7 @@ module.exports = {
           interaction.editReply({content: `Successfully sent message to ${u.tag}`, ephemeral: true})
           await u.send({ embeds: [gembed] });
         } catch (error) {
-          interaction.reply({content: `Unable to send message to ${u.tag}`, ephemeral: true})
+          interaction.editReply({content: `Unable to send message to ${u.tag}`, ephemeral: true})
         }
       }
   },

@@ -21,9 +21,9 @@ module.exports = {
     const up = `${days}d ${hours}h ${minutes}m ${secondsLeft}s`;
     const HelpEmbed = new EmbedBuilder()
       .setTitle("♡ My Usage. . .")
-      .setColor('#ffc17a')
+      .setColor('#73a6ff')
       .setThumbnail(
-        'https://upload-os-bbs.hoyolab.com/upload/2022/08/26/0/214de44639e584e74cbf5c041512dfc7_8717517192330651995.png?x-oss-process=image/resize,s_1000/quality,q_80/auto-orient,0/interlace,1/format,png'
+        'https://static.wikia.nocookie.net/gensin-impact/images/b/b8/Lotos_Somno_Shape.png/revision/latest?cb=20221014130219'
       )
       .addFields({
         name: 'Memory Usage',

@@ -7,7 +7,8 @@ module.exports = {
     async execute(interaction) {
         const HelpEmbed = new EmbedBuilder()
             .setTitle("✦ My Commands")
-            .setColor("#ffc17a")
+            .setColor("#73a6ff")
+            .setImage('https://static.wikia.nocookie.net/gensin-impact/images/4/46/Namecard_Banner_Nilou_Lotus_Dance.png/revision/latest/scale-to-width-down/1000?cb=20221014113815')
             .setThumbnail('https://upload-os-bbs.hoyolab.com/upload/2022/08/26/0/d1113c7758d375f16ef80dd46a644c1b_4753026554324219193.png?x-oss-process=image/resize,s_1000/quality,q_80/auto-orient,0/interlace,1/format,png')
             .addFields({name: '/help', value: 'Display usable commands!', inline: true})
             .addFields({name: '/user', value: 'View a users information', inline: true})

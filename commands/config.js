@@ -21,14 +21,22 @@ module.exports = {
 
     if (o === '') {
       interaction.reply('Config ID not found.')
-    } else if (o == 'c01') {
+    } else if (o === 'c01') {
       config.conf = u;
       fs.writeFileSync(m, JSON.stringify(config, null, 2));
       const p = new EmbedBuilder()
         .setTitle('✦ Configuration Updated')
         .setDescription(`Confession Channel has been set to <#${u}>`)
-        .setColor('#ffc17a');
+        .setColor('#73a6ff');
       return interaction.reply({ embeds: [p] });
+    } else if(o === 'm01') {
+      config.modlog = u;
+      fs.writeFileSync(m, JSON.stringify(config))
+      const i = new EmbedBuilder()
+        .setTitle('✦ Configuration Updated')
+        .setDescription(`Modlog Channel has been set to <#${u}>`)
+        .setColor('#73a6ff');
+      return interaction.reply({ embeds: [i] })
     }
     
   },
