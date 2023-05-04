@@ -6,6 +6,11 @@ module.exports = {
     .setName("server")
     .setDescription("Displays the servers information"),
   async execute(interaction) {
+    delete require.cache[require.resolve("../utils/command_config.json")];
+    const { server } = require('../utils/command_config.json')
+    if (server == "false") {
+      interaction.reply('This command is currently disabled!')
+    } else {
     const d = interaction.guild;
     const f = d.ownerId;
     const v = `<@${f}>`;
@@ -21,5 +26,6 @@ module.exports = {
       })
       .setThumbnail(d.iconURL({ dynamic: true }));
     await interaction.reply({ embeds: [h] });
+    }
   },
 };

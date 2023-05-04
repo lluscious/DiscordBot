@@ -12,6 +12,11 @@ module.exports = {
       option.setName("user").setDescription("Select a user").setRequired(true)
     ),
   async execute(interaction) {
+    delete require.cache[require.resolve("../utils/command_config.json")];
+    const { user } = require('../utils/command_config.json')
+    if (user == "false") {
+      interaction.reply('This command is currently disabled!')
+    } else {
     const user = interaction.options.getUser("user");
     const avatarURL = user.avatarURL({ format: "png", size: 4096 });
     const bannerURL = user.bannerURL({ format: "png", size: 4096 });
@@ -33,5 +38,6 @@ module.exports = {
       .setThumbnail(avatarURL)
       .setImage(bannerURL);
     return interaction.reply({ embeds: [userEmbed] });
+    }
   },
 };

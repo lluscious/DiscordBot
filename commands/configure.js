@@ -15,14 +15,31 @@ module.exports = {
         .setName("properties")
         .setDescription("Configure bot properties")
         .addStringOption((option) =>
-          option.setName("id").setDescription("The configuration ID")
+          option
+            .setName("id")
+            .setDescription("The configuration ID")
+            .setRequired(true)
         )
         .addStringOption((option) =>
-          option.setName("value").setDescription("Value to change")
+          option
+            .setName("value")
+            .setDescription("Value to change")
+            .setRequired(true)
         )
     )
     .addSubcommand((subcommand) =>
       subcommand.setName("ids").setDescription("List of configuration IDs")
+    )
+    .addSubcommand((subcommand) =>
+      subcommand
+        .setName("disable")
+        .setDescription("Disable commands")
+        .addStringOption((option) =>
+          option
+            .setName("command")
+            .setDescription("The commands name to disable")
+            .setRequired(true)
+        )
     ),
   async execute(interaction) {
     if (
@@ -39,6 +56,26 @@ module.exports = {
     delete require.cache[require.resolve("../utils/channel_config.json")];
     const { conf, modlog } = require("../utils/channel_config.json");
     const sub = interaction.options.getSubcommand();
+
+    // ---------------------------------  Disable  ---------------------------------  //
+
+    if (sub === "disable") {
+      const why = interaction.options.getString('command')
+      const huh = path.join(__dirname, "../utils/command_config.json");
+      const configFile = fs.readFileSync(huh);
+      const config = JSON.parse(configFile);
+      if (!(why in config)) {
+        interaction.reply(`Invalid command name: **${why}**`);
+        return;
+      }
+      const hi = new EmbedBuilder()
+      .setTitle("✦ Configuration : Disabling Commands")
+      .setDescription(`Successfully disabled **/${why}**!`)
+      .setTimestamp();
+      config[why] = "false"
+      fs.writeFileSync(huh, JSON.stringify(config));
+      interaction.reply({embeds: [hi]})
+    }
 
     // ---------------------------------  IDs  ---------------------------------  //
 

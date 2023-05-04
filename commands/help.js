@@ -5,7 +5,7 @@ module.exports = {
     .setName("help")
     .setDescription("Displays all available commands!"),
   async execute(interaction) {
-    const HelpEmbed = new EmbedBuilder()
+    const r = new EmbedBuilder()
       .setTitle("✦ My Commands")
       .setColor("#73a6ff")
       .setImage(
@@ -64,6 +64,6 @@ module.exports = {
       .setFooter({ text: "★ Displaying commands usable by all members only" });
     await interaction.deferReply();
     await wait(1000);
-    return interaction.editReply({ embeds: [HelpEmbed] });
+    return interaction.editReply({ embeds: [r] });
   },
 };
