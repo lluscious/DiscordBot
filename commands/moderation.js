@@ -90,7 +90,7 @@ module.exports = {
   async execute(interaction) {
     delete require.cache[require.resolve("../utils/command_config.json")];
     const { moderation } = require("../utils/command_config.json");
-    if (moderation == "false") {
+    if (moderation == false) {
       interaction.reply("This command is currently disabled!");
     } else {
       const sub = interaction.options.getSubcommand();
@@ -279,7 +279,7 @@ module.exports = {
         const d = modlog;
         const channel = interaction.guild.channels.resolve(d);
 
-        if (p == "true") {
+        if (p == true) {
           await interaction.deferReply({ ephemeral: true });
           await wait(1000);
           gembed.setFooter({ text: `Sender: ${interaction.guild.name}` });

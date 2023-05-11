@@ -15,7 +15,7 @@ module.exports = {
   async execute(interaction) {
     delete require.cache[require.resolve("../utils/command_config.json")];
     const { confess } = require("../utils/command_config.json");
-    if (confess == "false") {
+    if (confess == false) {
       interaction.reply("This command is currently disabled!");
     } else {
       delete require.cache[require.resolve("../utils/channel_config.json")];

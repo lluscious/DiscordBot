@@ -8,7 +8,7 @@ module.exports = {
   async execute(interaction) {
     delete require.cache[require.resolve("../utils/command_config.json")];
     const { randomroblox } = require("../utils/command_config.json");
-    if (randomroblox == "false") {
+    if (randomroblox == false) {
       interaction.reply("This command is currently disabled!");
     } else {
       const randomId = Math.floor(Math.random() * 999999999);

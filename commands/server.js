@@ -8,7 +8,7 @@ module.exports = {
   async execute(interaction) {
     delete require.cache[require.resolve("../utils/command_config.json")];
     const { server } = require('../utils/command_config.json')
-    if (server == "false") {
+    if (server == false) {
       interaction.reply('This command is currently disabled!')
     } else {
     const d = interaction.guild;

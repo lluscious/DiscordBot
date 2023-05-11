@@ -20,7 +20,7 @@ module.exports = {
   async execute(interaction) {
     delete require.cache[require.resolve("../utils/command_config.json")];
     const { randomuid } = require("../utils/command_config.json");
-    if (randomuid == "false") {
+    if (randomuid == false) {
       interaction.reply("This command is currently disabled!");
     } else {
       const s = interaction.options.getString("server");

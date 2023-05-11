@@ -14,7 +14,7 @@ module.exports = {
   async execute(interaction) {
     delete require.cache[require.resolve("../utils/command_config.json")];
     const { luck } = require("../utils/command_config.json");
-    if (luck == "false") {
+    if (luck == false) {
       interaction.reply("This command is currently disabled!");
     } else {
       const user = interaction.options.getUser("user");

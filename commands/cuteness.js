@@ -14,7 +14,7 @@ module.exports = {
   async execute(interaction) {
     delete require.cache[require.resolve("../utils/command_config.json")];
     const { cuteness } = require("../utils/command_config.json");
-    if (cuteness == "false") {
+    if (cuteness == false) {
       interaction.reply("This command is currently disabled!");
     } else {
       const user = interaction.options.getUser("user");

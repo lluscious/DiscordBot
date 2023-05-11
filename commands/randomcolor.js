@@ -7,7 +7,7 @@ module.exports = {
     async execute(interaction) {
         delete require.cache[require.resolve("../utils/command_config.json")];
         const { randomcolor } = require('../utils/command_config.json')
-        if (randomcolor == "false") {
+        if (randomcolor == false) {
           interaction.reply('This command is currently disabled!')
         } else {
         const color = Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');

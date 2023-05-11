@@ -16,7 +16,7 @@ module.exports = {
   async execute(interaction) {
     delete require.cache[require.resolve("../utils/command_config.json")];
     const { define } = require("../utils/command_config.json");
-    if (define == "false") {
+    if (define == false) {
       interaction.reply("This command is currently disabled!");
     } else {
       const i = interaction.options.getString("word");
