@@ -17,9 +17,11 @@ module.exports = {
     if (luck == false) {
       interaction.reply("This command is currently disabled!");
     } else {
+      delete require.cache[require.resolve("../utils/integer_config.json")];
+      const { maximumluck } = require("../utils/integer_config.json");
       const user = interaction.options.getUser("user");
       const avatarURL = user.displayAvatarURL({ format: "png", size: 4096 });
-      const luck = Math.floor(Math.random() * 102);
+      const luck = Math.floor(Math.random() * maximumluck);
       const luckEmbed = new EmbedBuilder()
         .setTitle(`${user.tag}'s luckiness rate!`)
         .setColor("#73a6ff")

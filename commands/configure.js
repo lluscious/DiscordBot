@@ -84,7 +84,7 @@ module.exports = {
         .setDescription(`Successfully disabled **/${why}**!`)
         .setTimestamp();
         if (config[why] == false) {
-          interaction.reply(`**${why}** is already disabled!`);
+          interaction.reply(`**${why}** is already disabled!`);     
         } else {
           config[why] = false;
           fs.writeFileSync(huh, JSON.stringify(config));
