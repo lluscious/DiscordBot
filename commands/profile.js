@@ -62,7 +62,7 @@ module.exports = {
       }
 
       if (bannerURL == "None") {
-        return;
+        
       } else {
         profile.setImage(bannerURL);
       }
