@@ -45,20 +45,6 @@ module.exports = {
     )
     .addSubcommand((subcommand) =>
       subcommand
-        .setName("addrole")
-        .setDescription("Add a role to a user")
-        .addRoleOption((option) =>
-          option.setName("role").setDescription("Role to add").setRequired(true)
-        )
-        .addUserOption((option) =>
-          option
-            .setName("user")
-            .setDescription("User to give role")
-            .setRequired(true)
-        )
-    )
-    .addSubcommand((subcommand) =>
-      subcommand
         .setName("message")
         .setDescription("Message a member")
         .addUserOption((option) =>
@@ -95,7 +81,7 @@ module.exports = {
     } else {
       const sub = interaction.options.getSubcommand();
 
-      // ---------------------------------  Ban  ---------------------------------  //
+      // ---------------------------------  Subcommand : Ban  ---------------------------------  //
 
       if (sub === "ban") {
         const bannedUser = interaction.options.getUser("user");
@@ -151,7 +137,7 @@ module.exports = {
         }
       }
 
-      // ---------------------------------  Timeout  ---------------------------------  //
+      // ---------------------------------  Subcommand : Timeout  ---------------------------------  //
       else if (sub === "timeout") {
         const t = interaction.options.getUser("user");
         const r = interaction.options.getMember("user");
@@ -213,31 +199,8 @@ module.exports = {
         }
       }
 
-      // ---------------------------------  role  ---------------------------------  //
-      else if (sub === "addrole") {
-        const user = interaction.options.getUser("user");
-        const role = interaction.options.getRole("role");
+      // ---------------------------------  Subcommand : Message  ---------------------------------  //
 
-        const embed = new EmbedBuilder()
-          .setColor("#73a6ff")
-          .setTitle("✦ Moderation : Add Role")
-          .setDescription(`Successfully added <@&${role.id}> to <@${user.id}>!`)
-          .setTimestamp();
-
-        try {
-          await interaction.guild.members.cache.get(user.id).roles.add(role);
-          await interaction.reply({ embeds: [embed] });
-        } catch (error) {
-          console.error(`[Error] ${error}`);
-          const errorEmbed = new EmbedBuilder()
-            .setTitle(`⚠️ Error!`)
-            .setDescription(`**${error}**`)
-            .setTimestamp();
-          await interaction.reply({ embeds: [errorEmbed] });
-        }
-      }
-
-      // ---------------------------------  message  ---------------------------------  //
       else if (sub === "message") {
         const u = interaction.options.getUser("user");
         const f = interaction.options.getString("message");

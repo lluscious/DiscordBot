@@ -68,7 +68,7 @@ module.exports = {
     const { conf, modlog } = require("../utils/channel_config.json");
     const sub = interaction.options.getSubcommand();
 
-    // ---------------------------------  Disable  ---------------------------------  //
+    // ---------------------------------  Subcommand : Disable  ---------------------------------  //
 
     if (sub === "disable") {
       const why = interaction.options.getString("command");
@@ -93,7 +93,7 @@ module.exports = {
         }
     }
 
-    // ---------------------------------  Enable  ---------------------------------  //
+    // ---------------------------------  Subcommand : Enable  ---------------------------------  //
 
     if (sub === "enable") {
       const why = interaction.options.getString("command");
@@ -119,7 +119,7 @@ module.exports = {
       }
     }
 
-    // ---------------------------------  IDs  ---------------------------------  //
+    // ---------------------------------  Subcommand : IDs  ---------------------------------  //
 
     if (sub === "ids") {
       const id = new EmbedBuilder()
@@ -140,7 +140,7 @@ module.exports = {
       await interaction.reply({ embeds: [id] });
     }
 
-    // ---------------------------------  Properties  ---------------------------------  //
+    // ---------------------------------  Subcommand : Properties  ---------------------------------  //
     else if (sub === "properties") {
       const m = path.join(__dirname, "../utils/channel_config.json");
       const o = interaction.options.getString("id");
