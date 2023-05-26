@@ -51,11 +51,21 @@ module.exports = {
     )
     .addSubcommand((subcommand) =>
       subcommand
+        .setName("like")
+        .setDescription("Like another user's profile")
+        .addUserOption((option) =>
+          option
+            .setName("user")
+            .setDescription("User's profile to like")
+            .setRequired(true)
+        )
+    )
+    .addSubcommand((subcommand) =>
+      subcommand
         .setName("register")
         .setDescription("Register your profile for the bot")
     ),
   async execute(interaction) {
-
     const sub = interaction.options.getSubcommand();
 
     // ---------------------------------  Subcommand : View  ---------------------------------  //
@@ -88,9 +98,15 @@ module.exports = {
       } else {
         const profile = new EmbedBuilder()
           .setTitle(`✦ ${username}'s Profile`)
-          .addFields({ name: "Likes", value: likes.toString() })
-          .addFields({ name: "Liked", value: liked.toString() })
-          .addFields({ name: "Discord Username", value: interaction.user.tag })
+          .addFields({
+            name: "Likes Recieved",
+            value: `${likes.toString()}`,
+          })
+          .addFields({
+            name: "Likes Given",
+            value: `${liked.toString()}`,
+          })
+          .addFields({ name: "Discord Username", value: l.tag })
           .addFields({ name: "Join Date", value: l.createdAt.toUTCString() })
           .setFooter({
             text: "♡ Customize your profile by using /profile edit!",
@@ -193,9 +209,55 @@ module.exports = {
           fs.writeFileSync(profile_path, JSON.stringify(profileData));
           interaction.reply("Banner image changed!");
         } else {
-          interaction.reply('Invalid link!')
+          interaction.reply("Invalid link!");
         }
       }
+    }
+
+    // ---------------------------------  Subcommand : Like --------------------------------- //
+
+    if (sub == "like") {
+      const user = interaction.options.getUser("user");
+      if (user.id == interaction.user.id) {
+        interaction.reply({
+          content: `You can't like your own profile!`,
+          ephemeral: true,
+        });
+        return;
+      }
+      delete require.cache[require.resolve("../data/likes.json")];
+      const LikeAmount = require("../data/likes.json");
+      const likes_path = path.join(__dirname, "../data/likes.json");
+      const likes = fs.readFileSync(likes_path);
+      const likeData = JSON.parse(likes);
+      const newLikesAmount = LikeAmount[`${user.id}_likes`] + 1;
+      const newLikedAmount = LikeAmount[`${interaction.user.id}_liked`] + 1;
+      likeData[`${user.id}_likes`] = newLikesAmount;
+      likeData[`${interaction.user.id}_liked`] = newLikedAmount;
+      fs.writeFileSync(likes_path, JSON.stringify(likeData));
+
+      if (!user.id in LikeAmount || !interaction.user.id in LikeAmount) {
+        return interaction.reply({
+          content: "User not registered!",
+          ephemeral: true,
+        });
+      }
+
+      const likeDM = new EmbedBuilder()
+        .setTitle("♡ New like recieved!")
+        .setDescription(
+          `${interaction.user.tag} liked your profile!\n\n♡ You now have **${newLikesAmount}** likes!`
+        )
+        .setThumbnail(
+          "https://preview.redd.it/ayato-emotes-from-genshin-x-heytea-collab-v0-itdbi639s6m91.png?width=141&format=png&auto=webp&v=enabled&p=e&s=9ea734e2601843600584a54e4935261e3cc7f78f"
+        )
+        .setTimestamp()
+        .setColor("#94d1ff");
+      interaction.reply({
+        content: `Successfully liked ${user.tag}'s profile!`,
+        ephemeral: true,
+      });
+      user.send({embeds: [likeDM]})
     }
 
     // ---------------------------------  Subcommand : Register --------------------------------- //
@@ -207,62 +269,61 @@ module.exports = {
         interaction.reply("You are already registered!");
         return;
       } else {
+        const form = new ModalBuilder()
+          .setCustomId("register")
+          .setTitle("User Registration");
 
-      const form = new ModalBuilder()
-        .setCustomId("register")
-        .setTitle("User Registration");
+        const username = new TextInputBuilder()
+          .setCustomId("username")
+          .setMinLength(3)
+          .setMaxLength(20)
+          .setLabel("Username")
+          .setStyle(TextInputStyle.Short);
 
-      const username = new TextInputBuilder()
-        .setCustomId("username")
-        .setMinLength(3)
-        .setMaxLength(20)
-        .setLabel("Username")
-        .setStyle(TextInputStyle.Short);
+        const usernameManager = new ActionRowBuilder().addComponents(username);
+        form.addComponents(usernameManager);
+        interaction.showModal(form);
 
-      const usernameManager = new ActionRowBuilder().addComponents(username);
-      form.addComponents(usernameManager);
-      interaction.showModal(form);
+        let usernameInput;
 
-      let usernameInput;
-
-      await new Promise((resolve) => {
-        client.on(Events.InteractionCreate, (interaction) => {
-          if (!interaction.isModalSubmit()) return;
-          usernameInput = interaction.fields.getTextInputValue("username");
-          console.log(`[Registration] Created ${usernameInput}`);
-          resolve();
-          interaction.reply(
-            `Successfully Registered, Welcome **${usernameInput}**!`
-          );
+        await new Promise((resolve) => {
+          client.on(Events.InteractionCreate, (interaction) => {
+            if (!interaction.isModalSubmit()) return;
+            usernameInput = interaction.fields.getTextInputValue("username");
+            console.log(`[Registration] Created ${usernameInput}`);
+            resolve();
+            interaction.reply(
+              `Successfully Registered, Welcome **${usernameInput}**!`
+            );
+          });
         });
-      });
 
-      const fs = require("fs/promises");
+        const fs = require("fs/promises");
 
-      const usernamePath = path.join(__dirname, "../data/username.json");
-      const usernameHandler = await fs.readFile(usernamePath, "utf8");
-      const userData = JSON.parse(usernameHandler);
-      userData[interaction.user.id] = usernameInput;
-      const userOverwriteData = JSON.stringify(userData, null, 2);
-      await fs.writeFile(usernamePath, userOverwriteData);
+        const usernamePath = path.join(__dirname, "../data/username.json");
+        const usernameHandler = await fs.readFile(usernamePath, "utf8");
+        const userData = JSON.parse(usernameHandler);
+        userData[interaction.user.id] = usernameInput;
+        const userOverwriteData = JSON.stringify(userData, null, 2);
+        await fs.writeFile(usernamePath, userOverwriteData);
 
-      const balancePath = path.join(__dirname, "../data/likes.json");
-      const balanceHandler = await fs.readFile(balancePath, "utf8");
-      const balanceData = JSON.parse(balanceHandler);
-      balanceData[`${interaction.user.id}_likes`] = 0;
-      balanceData[`${interaction.user.id}_liked`] = 0;
-      const balanceOverwriteData = JSON.stringify(balanceData, null, 2);
-      await fs.writeFile(balancePath, balanceOverwriteData);
+        const balancePath = path.join(__dirname, "../data/likes.json");
+        const balanceHandler = await fs.readFile(balancePath, "utf8");
+        const balanceData = JSON.parse(balanceHandler);
+        balanceData[`${interaction.user.id}_likes`] = 0;
+        balanceData[`${interaction.user.id}_liked`] = 0;
+        const balanceOverwriteData = JSON.stringify(balanceData, null, 2);
+        await fs.writeFile(balancePath, balanceOverwriteData);
 
-      const profilePath = path.join(__dirname, "../data/profile.json");
-      const profileHander = await fs.readFile(profilePath, "utf8");
-      const profileData = JSON.parse(profileHander);
-      profileData[`${interaction.user.id}_color`] = "#1c1c1c";
-      profileData[`${interaction.user.id}_desc`] = "?";
-      profileData[`${interaction.user.id}_url`] = "None";
-      const profileOverwriteData = JSON.stringify(profileData, null, 2);
-      await fs.writeFile(profilePath, profileOverwriteData);
-    }
+        const profilePath = path.join(__dirname, "../data/profile.json");
+        const profileHander = await fs.readFile(profilePath, "utf8");
+        const profileData = JSON.parse(profileHander);
+        profileData[`${interaction.user.id}_color`] = "#1c1c1c";
+        profileData[`${interaction.user.id}_desc`] = "?";
+        profileData[`${interaction.user.id}_url`] = "None";
+        const profileOverwriteData = JSON.stringify(profileData, null, 2);
+        await fs.writeFile(profilePath, profileOverwriteData);
+      }
     }
   },
 };
