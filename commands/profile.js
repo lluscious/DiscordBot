@@ -28,12 +28,24 @@ module.exports = {
     )
     .addSubcommand((subcommand) =>
       subcommand
-        .setName("set_description")
-        .setDescription("Set your description")
+        .setName("edit")
+        .setDescription("Edit your profile")
         .addStringOption((option) =>
           option
-            .setName("new_description")
-            .setDescription("The new description to set")
+            .setName("object")
+            .setDescription("Object to edit")
+            .setRequired(true)
+            .addChoices(
+              { name: "Username", value: "choice_user" },
+              { name: "Description", value: "choice_desc" },
+              { name: "Embed color", value: "choice_color" },
+              { name: "Banner URL", value: "choice_url" }
+            )
+        )
+        .addStringOption((option) =>
+          option
+            .setName("value")
+            .setDescription("New value to set")
             .setRequired(true)
         )
     )
@@ -43,6 +55,7 @@ module.exports = {
         .setDescription("Register your profile for the bot")
     ),
   async execute(interaction) {
+
     const sub = interaction.options.getSubcommand();
 
     // ---------------------------------  Subcommand : View  ---------------------------------  //
@@ -52,20 +65,21 @@ module.exports = {
       const user = l.id;
       const avatarURL = l.avatarURL({ format: "png", size: 4096 });
 
-      delete require.cache[require.resolve("../data/balance.json")];
+      delete require.cache[require.resolve("../data/likes.json")];
       delete require.cache[require.resolve("../data/profile.json")];
       delete require.cache[require.resolve("../data/username.json")];
 
       const usernameData = require("../data/username.json");
       const username = usernameData[user];
 
-      const balanceData = require("../data/balance.json");
-      const balance = balanceData[user];
+      const favoriteData = require("../data/likes.json");
+      const likes = favoriteData[`${user}_likes`];
+      const liked = favoriteData[`${user}_liked`];
 
       const profileData = require("../data/profile.json");
       const color = profileData[`${user}_color`];
       const desc = profileData[`${user}_desc`];
-      const bannerURL = profileData[`${user}_bannerURL`];
+      const bannerURL = profileData[`${user}_url`];
 
       if (!(user in usernameData)) {
         interaction.reply(
@@ -74,16 +88,19 @@ module.exports = {
       } else {
         const profile = new EmbedBuilder()
           .setTitle(`✦ ${username}'s Profile`)
-          .addFields({ name: "Balance", value: balance.toString() })
+          .addFields({ name: "Likes", value: likes.toString() })
+          .addFields({ name: "Liked", value: liked.toString() })
           .addFields({ name: "Discord Username", value: interaction.user.tag })
           .addFields({ name: "Join Date", value: l.createdAt.toUTCString() })
-          .setFooter({ text: "♡ Customize your profile through the shop!" })
+          .setFooter({
+            text: "♡ Customize your profile by using /profile edit!",
+          })
           .setColor(color)
           .setDescription(desc)
           .setTimestamp()
           .setThumbnail(avatarURL);
 
-        if (!(bannerURL == "None")) {
+        if (bannerURL !== "None") {
           profile.setImage(bannerURL);
         }
 
@@ -96,39 +113,92 @@ module.exports = {
       }
     }
 
-    // ---------------------------------  Subcommand : Set Description --------------------------------- //
-
-    else if (sub === "set_description") {
-
-      delete require.cache[require.resolve("../data/profile.json")];
-      const file = path.join(__dirname, "../data/profile.json");
-
+    // ---------------------------------  Subcommand : Edit --------------------------------- //
+    else if (sub === "edit") {
       delete require.cache[require.resolve("../data/username.json")];
       const usernameData = require("../data/username.json");
       const id = interaction.user.id;
-  
-      if (!(interaction.user.id in usernameData)){
-        interaction.reply(`${id}_desc data not found!`)
+      if (!(interaction.user.id in usernameData)) {
+        interaction.reply(`${id} data not found!`);
         return;
       }
 
-      const profile = fs.readFileSync(file);
-      const profileData = JSON.parse(profile);
+      const editor = interaction.options.getString("object");
 
-      const newDesc = interaction.options.getString("new_description");
+      // User
 
-      if (newDesc.length >= 40) {
-        interaction.reply("Description too long, try a shorter one?");
-      } else {
-        const descData = `${id}_desc`;
-        profileData[descData] = newDesc;
-        fs.writeFileSync(file, JSON.stringify(profileData));
-        interaction.reply("Description changed!");
+      if (editor == "choice_user") {
+        const username = interaction.options.getString("value");
+
+        if (username.length > 16) {
+          interaction.reply("Username must be under 16 or 16 characters!");
+          return;
+        } else {
+          delete require.cache[require.resolve("../data/username.json")];
+          const username_path = path.join(__dirname, "../data/username.json");
+          const user = fs.readFileSync(username_path);
+          const userData = JSON.parse(user);
+          userData[id] = username;
+          fs.writeFileSync(username_path, JSON.stringify(userData));
+          interaction.reply("Username changed!");
+        }
+      }
+
+      // Desc
+      else if (editor == "choice_desc") {
+        delete require.cache[require.resolve("../data/profile.json")];
+        const profile_path = path.join(__dirname, "../data/profile.json");
+        const profile = fs.readFileSync(profile_path);
+        const profileData = JSON.parse(profile);
+        const newDesc = interaction.options.getString("value");
+
+        if (newDesc.length >= 40) {
+          interaction.reply("Description too long, try a shorter one?");
+        } else {
+          const descData = `${id}_desc`;
+          profileData[descData] = newDesc;
+          fs.writeFileSync(profile_path, JSON.stringify(profileData));
+          interaction.reply("Description changed!");
+        }
+      }
+
+      // Color
+      else if (editor == "choice_color") {
+        delete require.cache[require.resolve("../data/profile.json")];
+        const profile_path = path.join(__dirname, "../data/profile.json");
+        const profile = fs.readFileSync(profile_path);
+        const profileData = JSON.parse(profile);
+        const newColor = interaction.options.getString("value");
+
+        if (newColor.length !== 7) {
+          interaction.reply("Invalid hex color!");
+        } else {
+          const colorData = `${id}_color`;
+          profileData[colorData] = newColor;
+          fs.writeFileSync(profile_path, JSON.stringify(profileData));
+          interaction.reply("Embed color changed!");
+        }
+      }
+
+      // Banner URL
+      else if (editor == "choice_url") {
+        delete require.cache[require.resolve("../data/profile.json")];
+        const profile_path = path.join(__dirname, "../data/profile.json");
+        const profile = fs.readFileSync(profile_path);
+        const profileData = JSON.parse(profile);
+        const newURL = interaction.options.getString("value");
+        if (newURL.startsWith("http://") || newURL.startsWith("https://")) {
+          const urlData = `${id}_url`;
+          profileData[urlData] = newURL;
+          fs.writeFileSync(profile_path, JSON.stringify(profileData));
+          interaction.reply("Banner image changed!");
+        } else {
+          interaction.reply('Invalid link!')
+        }
       }
     }
 
     // ---------------------------------  Subcommand : Register --------------------------------- //
-
     else if (sub == "register") {
       delete require.cache[require.resolve("../data/username.json")];
       const usernameData = require("../data/username.json");
@@ -136,7 +206,7 @@ module.exports = {
       if (interaction.user.id in usernameData) {
         interaction.reply("You are already registered!");
         return;
-      }
+      } else {
 
       const form = new ModalBuilder()
         .setCustomId("register")
@@ -160,14 +230,14 @@ module.exports = {
           if (!interaction.isModalSubmit()) return;
           usernameInput = interaction.fields.getTextInputValue("username");
           console.log(`[Registration] Created ${usernameInput}`);
+          resolve();
           interaction.reply(
             `Successfully Registered, Welcome **${usernameInput}**!`
           );
-          resolve();
         });
       });
 
-      const fs = require("fs/promises")
+      const fs = require("fs/promises");
 
       const usernamePath = path.join(__dirname, "../data/username.json");
       const usernameHandler = await fs.readFile(usernamePath, "utf8");
@@ -176,21 +246,23 @@ module.exports = {
       const userOverwriteData = JSON.stringify(userData, null, 2);
       await fs.writeFile(usernamePath, userOverwriteData);
 
-      const balancePath = path.join(__dirname, "../data/balance.json");
+      const balancePath = path.join(__dirname, "../data/likes.json");
       const balanceHandler = await fs.readFile(balancePath, "utf8");
       const balanceData = JSON.parse(balanceHandler);
-      balanceData[interaction.user.id] = 0;
+      balanceData[`${interaction.user.id}_likes`] = 0;
+      balanceData[`${interaction.user.id}_liked`] = 0;
       const balanceOverwriteData = JSON.stringify(balanceData, null, 2);
       await fs.writeFile(balancePath, balanceOverwriteData);
 
       const profilePath = path.join(__dirname, "../data/profile.json");
-      const profileHander = await fs.readFile(balancePath, "utf8");
+      const profileHander = await fs.readFile(profilePath, "utf8");
       const profileData = JSON.parse(profileHander);
       profileData[`${interaction.user.id}_color`] = "#1c1c1c";
       profileData[`${interaction.user.id}_desc`] = "?";
-      profileData[`${interaction.user.id}_bannerURL`] = "None";
+      profileData[`${interaction.user.id}_url`] = "None";
       const profileOverwriteData = JSON.stringify(profileData, null, 2);
       await fs.writeFile(profilePath, profileOverwriteData);
+    }
     }
   },
 };

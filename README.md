@@ -1,6 +1,6 @@
-mrh
+# Random bot im making for fun
+idk
 
-
-## Credits
-Mannnngouuurifo
+## help :pleading_face:
+mango
             
