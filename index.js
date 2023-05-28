@@ -106,14 +106,17 @@ process.stdin.on("data", (data) => {
   const input = data.toString().trim(); 
   if (input == "bot.Data.update") {
     if (process.platform === "linux" || process.platform === "android") {
-      doShellCmd("git commit -m Data_Update ./data/* && git push");
+      doShellCmd(
+        `git commit -m Data_Update_${process.platform} ./data/* && git push`
+      );
     } else if (process.platform === "win32") {
-      doShellCmd("git commit -m Data_Update ./data/* && git push");
+      doShellCmd(
+        `git commit -m Data_Update_${process.platform} ./data/* && git push`
+      );
     }
   }
 });
 
-// bot.Data.view
 // bot.Data.view
 process.stdin.on("data", (data) => {
   const input = data.toString().trim();
