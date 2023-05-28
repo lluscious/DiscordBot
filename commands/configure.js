@@ -83,15 +83,16 @@ module.exports = {
         .setTitle("✦ Configuration : Disabling Commands")
         .setDescription(`Successfully disabled **/${why}**!`)
         .setTimestamp();
-        if (config[why] == false) {
-          interaction.reply(`**${why}** is already disabled!`);     
-        } else {
-          config[why] = false;
-          fs.writeFileSync(huh, JSON.stringify(config));
-          console.log(`[Command_Handling] Disabled /${why}`);
-          interaction.reply({ embeds: [hi] });
-        }
+      if (config[why] == false) {
+        interaction.reply(`**${why}** is already disabled!`);
+      } else {
+        config[why] = false;
+        fs.writeFileSync(huh, JSON.stringify(config));
+        console.log(`[Command_Handling] Disabled /${why}`);
+        interaction.reply({ embeds: [hi] });
+      }
     }
+
 
     // ---------------------------------  Subcommand : Enable  ---------------------------------  //
 
