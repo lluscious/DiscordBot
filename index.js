@@ -99,11 +99,6 @@ process.stdin.on("data", (data) => {
     client.login(token)
     console.log('[Bot] Restart complete!')
   }
-});
-
-// bot.Data.update
-process.stdin.on("data", (data) => {
-  const input = data.toString().trim(); 
   if (input == "bot.Data.update") {
     if (process.platform === "linux" || process.platform === "android") {
       doShellCmd(
@@ -115,11 +110,7 @@ process.stdin.on("data", (data) => {
       );
     }
   }
-});
 
-// bot.Data.view
-process.stdin.on("data", (data) => {
-  const input = data.toString().trim();
   const args = input.split(" "); // LYUU FINDS OUT ABOUT ARGS AND ITS THE BEST THING EVER!>>!?!?!?
   if (args[0] === "bot.Data.view") {
     const command = args[0];

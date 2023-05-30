@@ -135,15 +135,20 @@ module.exports = {
           });
         }
 
-        if (user == interaction.user.id) {
-          profile.setTitle(`✦ Your Profile (${username})`);
-          interaction.reply({
-            embeds: [profile],
-          });
-        } else {
-          interaction.reply({
-            embeds: [profile],
-          });
+        try {
+          if (user == interaction.user.id) {
+             await profile.setTitle(`✦ Your Profile (${username})`);
+            await interaction.reply({
+              embeds: [profile],
+            });
+          } else {
+            await interaction.reply({
+              embeds: [profile],
+            });
+          }
+        } catch (error) {
+          await interaction.reply('An error occured while loading data, Sending error...')
+          await interaction.followUp(`${error}`)
         }
       }
     }
@@ -288,7 +293,7 @@ module.exports = {
               if (!newDesc) {
                 newDesc = profileJSON[`${interaction.user.id}_desc`];
               } else if (newDesc == "N/A") {
-                newDesc == "";
+                newDesc = "";
               }
 
               if (!newColor) {
@@ -414,8 +419,6 @@ module.exports = {
         embeds: [likeDM],
       });
     }
-
-    // ---------------------------------  Subcommand : Delete --------------------------------- //
 
     // ---------------------------------  Subcommand : Register --------------------------------- //
     if (sub == "register") {
