@@ -1,34 +1,25 @@
-const { REST, Routes } = require('discord.js');
-const clientId = '1094952046035222559';
-const { token } = require('./token.json')
-const fs = require('node:fs');
-const path = require('node:path');
+const fs = require('fs');
+const path = require('path');
+
 const commands = [];
 const commandsPath = path.join(__dirname, 'commands');
-const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
-
-console.log(`---- Registering Commands ----\n`)
-
-for (const file of commandFiles) {
-	const command = require(`./commands/${file}`);
-	commands.push(command.data.toJSON());
-}
-
-const rest = new REST({ version: '10' }).setToken(token);
 
 (async () => {
-	try {
-		console.log(`[Commands] Loading ${commands.length} commands...`);
+  try {
+    const files = fs.readdirSync(commandsPath);
+	console.log('\x1b[36m%s\x1b[0m',`\n----- Loading ${files.length} Commands -----\n`);
 
-		const data = await rest.put(
-			Routes.applicationCommands(clientId),
-			{ body: commands },
-		);
+    files.forEach((file) => {
+      const command = require(path.join(commandsPath, file));
+      commands.push(command);
+	  console.log(`[Commands] Loaded ${file}`);
+    });
 
-		console.log(`[Commands] Loaded ${data.length} commands\n`);
-		console.log(`----------- Login. -----------\n`)
-	} catch (error) {
+    console.log('\x1b[36m%s\x1b[0m',`\n----------- Login. -----------\n`);
 
-		console.error(error);
-	}
+  } catch (error) {
+
+    console.error(error);
+
+  }
 })();

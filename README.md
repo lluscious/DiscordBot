@@ -5,6 +5,9 @@ idk
 mango 🥭
 
 ## todo
+
+
+## finished todos
 - add embed thumbnail editing
 - improve embed description editing
 - add title URLs
@@ -17,4 +20,12 @@ mango 🥭
 ## finished todos
 - merge like to profile command group
 - re add unused command into "fun" command group ( just re added them instead )
+
+## Cancelled todos
+- add author + author icons
+- add favorites
+
+## Extra
+- added console commands
+- revamped profile editing into modal editing
             

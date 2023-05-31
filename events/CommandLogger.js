@@ -1,7 +1,5 @@
 const { Events, EmbedBuilder } = require("discord.js");
-const client = require("../index");
-
-console.log("[Event] Loaded commandLogging.js");
+const client = require("../client");
 
 client.on(Events.InteractionCreate, (interaction) => {
   if (interaction.isCommand) {
