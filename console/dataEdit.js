@@ -47,7 +47,7 @@ module.exports = () => {
             "url",
           ];
           const likeObj = ["likes", "liked"];
-          if (object in profileObj) {
+          if (profileObj.includes(object)) {
             profileData[`${id}_${object}`] = newData;
             fs.writeFileSync(profile_path, JSON.stringify(profileData));
             console.log(

@@ -26,6 +26,7 @@ mango 🥭
 - add favorites
 
 ## Extra
+- shell commands
 - added console commands
 - revamped profile editing into modal editing
             
