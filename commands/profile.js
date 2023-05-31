@@ -336,22 +336,22 @@ module.exports = {
               if (!newURL) {
                 newURL = profileJSON[`${interaction.user.id}_url`];
               } else if (newURL == "N/A") {
-                newURL == "None";
+                newURL = "None";
               }
               if (!newIcon) {
                 newIcon = profileJSON[`${interaction.user.id}_icon`];
               } else if (newIcon == "N/A") {
-                newIcon == "None";
+                newIcon = "None";
               }
               if (!newFooter) {
                 newFooter = profileJSON[`${interaction.user.id}_footer`];
               } else if (newFooter == "N/A") {
-                newFooter == "";
+                newFooter = "";
               }
               if (!newFicon) {
                 newFicon = profileJSON[`${interaction.user.id}_ficon`];
               } else if (newFicon == "N/A") {
-                newFicon == "None";
+                newFicon = "None";
               } // yandere dev coding moment
 
               delete require.cache[require.resolve("../data/profile.json")];
