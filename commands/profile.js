@@ -135,15 +135,20 @@ module.exports = {
           });
         }
 
-        if (user == interaction.user.id) {
-          profile.setTitle(`✦ Your Profile (${username})`);
-          interaction.reply({
-            embeds: [profile],
-          });
-        } else {
-          interaction.reply({
-            embeds: [profile],
-          });
+        try {
+          if (user == interaction.user.id) {
+             await profile.setTitle(`✦ Your Profile (${username})`);
+            await interaction.reply({
+              embeds: [profile],
+            });
+          } else {
+            await interaction.reply({
+              embeds: [profile],
+            });
+          }
+        } catch (error) {
+          await interaction.reply('An error occured while loading data, Sending error...')
+          await interaction.followUp(`${error}`)
         }
       }
     }
@@ -288,7 +293,7 @@ module.exports = {
               if (!newDesc) {
                 newDesc = profileJSON[`${interaction.user.id}_desc`];
               } else if (newDesc == "N/A") {
-                newDesc == "";
+                newDesc = "";
               }
 
               if (!newColor) {
@@ -331,22 +336,22 @@ module.exports = {
               if (!newURL) {
                 newURL = profileJSON[`${interaction.user.id}_url`];
               } else if (newURL == "N/A") {
-                newURL == "None";
+                newURL = "None";
               }
               if (!newIcon) {
                 newIcon = profileJSON[`${interaction.user.id}_icon`];
               } else if (newIcon == "N/A") {
-                newIcon == "None";
+                newIcon = "None";
               }
               if (!newFooter) {
                 newFooter = profileJSON[`${interaction.user.id}_footer`];
               } else if (newFooter == "N/A") {
-                newFooter == "";
+                newFooter = "";
               }
               if (!newFicon) {
                 newFicon = profileJSON[`${interaction.user.id}_ficon`];
               } else if (newFicon == "N/A") {
-                newFicon == "None";
+                newFicon = "None";
               } // yandere dev coding moment
 
               delete require.cache[require.resolve("../data/profile.json")];
@@ -414,8 +419,6 @@ module.exports = {
         embeds: [likeDM],
       });
     }
-
-    // ---------------------------------  Subcommand : Delete --------------------------------- //
 
     // ---------------------------------  Subcommand : Register --------------------------------- //
     if (sub == "register") {
