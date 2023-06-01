@@ -5,9 +5,9 @@ module.exports = {
         .setName("random_color")
         .setDescription("Gives you a random color"),
     async execute(interaction) {
-        delete require.cache[require.resolve("../utils/command_config.json")];
-        const { randomcolor } = require('../utils/command_config.json')
-        if (randomcolor == false) {
+        delete require.cache[require.resolve("../data/config/commandConfigData.json")];
+        const { SlashCommandColor } = require('../data/config/commandConfigData.json')
+        if (SlashCommandColor == false) {
           interaction.reply('This command is currently disabled!')
         } else {
         const color = Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');

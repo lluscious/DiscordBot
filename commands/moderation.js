@@ -74,9 +74,9 @@ module.exports = {
     ),
 
   async execute(interaction) {
-    delete require.cache[require.resolve("../utils/command_config.json")];
-    const { moderation } = require("../utils/command_config.json");
-    if (moderation == false) {
+    delete require.cache[require.resolve("../data/config/commandConfigData.json")];
+    const { SlashCommandGroupModeration } = require("../data/config/commandConfigData.json");
+    if (SlashCommandGroupModeration == false) {
       interaction.reply("This command is currently disabled!");
     } else {
       const sub = interaction.options.getSubcommand();
@@ -237,9 +237,9 @@ module.exports = {
           )
           .setTimestamp();
 
-        delete require.cache[require.resolve("../utils/channel_config.json")];
-        const { modlog } = require("../utils/channel_config.json");
-        const d = modlog;
+        delete require.cache[require.resolve("../data/config/channelConfigData.json")];
+        const { BotModeratorLoggingSendChannel } = require("../data/config/channelConfigData.json");
+        const d = BotModeratorLoggingSendChannel;
         const channel = interaction.guild.channels.resolve(d);
 
         if (p == true) {

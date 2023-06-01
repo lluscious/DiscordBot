@@ -14,9 +14,9 @@ module.exports = {
       option.setName("word").setDescription("Word to define").setRequired(true)
     ),
   async execute(interaction) {
-    delete require.cache[require.resolve("../utils/command_config.json")];
-    const { define } = require("../utils/command_config.json");
-    if (define == false) {
+    delete require.cache[require.resolve("../data/config/commandConfigData.json")];
+    const { SlashCommandDefine } = require("../data/config/commandConfigData.json");
+    if (SlashCommandDefine == false) {
       interaction.reply("This command is currently disabled!");
     } else {
       const i = interaction.options.getString("word");

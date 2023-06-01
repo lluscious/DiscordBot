@@ -13,15 +13,15 @@ module.exports = {
     ),
 
   async execute(interaction) {
-    delete require.cache[require.resolve("../utils/command_config.json")];
-    const { confess } = require("../utils/command_config.json");
-    if (confess == false) {
+    delete require.cache[require.resolve("../data/config/commandConfigData.json")];
+    const { SlashCommandConfession } = require("../data/config/commandConfigData.json");
+    if (SlashCommandConfession == false) {
       interaction.reply("This command is currently disabled!");
     } else {
-      delete require.cache[require.resolve("../utils/channel_config.json")];
-      const { conf } = require("../utils/channel_config.json");
+      delete require.cache[require.resolve("../data/config/channelConfigData.json")];
+      const { BotConfessionSendChannel } = require("../data/config/channelConfigData.json");
       const y = interaction.options.getString("confession");
-      const h = conf;
+      const h = BotConfessionSendChannel;
       const t = interaction.client.channels.cache.get(h);
       if (!t) {
         return interaction.reply({

@@ -18,9 +18,9 @@ module.exports = {
         )
     ),
   async execute(interaction) {
-    delete require.cache[require.resolve("../utils/command_config.json")];
-    const { randomuid } = require("../utils/command_config.json");
-    if (randomuid == false) {
+    delete require.cache[require.resolve("../data/config/commandConfigData.json")];
+    const { SlashCommandUID } = require("../data/config/commandConfigData.json");
+    if (SlashCommandUID == false) {
       interaction.reply("This command is currently disabled!");
     } else {
       const s = interaction.options.getString("server");

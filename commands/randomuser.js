@@ -6,9 +6,9 @@ module.exports = {
     .setName('random_user')
     .setDescription('Gives you a random Roblox user'),
   async execute(interaction) {
-    delete require.cache[require.resolve("../utils/command_config.json")];
-    const { randomuser } = require('../utils/command_config.json')
-    if (randomuser == false) {
+    delete require.cache[require.resolve("../data/config/commandConfigData.json")];
+    const { SlashCommandRobloxUser } = require('../data/config/commandConfigData.json')
+    if (SlashCommandRobloxUser == false) {
       interaction.reply('This command is currently disabled!')
     } else {
     const randomId = Math.floor(Math.random() * 999999999);

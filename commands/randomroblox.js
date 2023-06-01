@@ -6,9 +6,9 @@ module.exports = {
     .setName("random_game")
     .setDescription("Gives you a random Roblox game"),
   async execute(interaction) {
-    delete require.cache[require.resolve("../utils/command_config.json")];
-    const { randomroblox } = require("../utils/command_config.json");
-    if (randomroblox == false) {
+    delete require.cache[require.resolve("../data/config/commandConfigData.json")];
+    const { SlashCommandRobloxGame } = require("../data/config/commandConfigData.json");
+    if (SlashCommandRobloxGame == false) {
       interaction.reply("This command is currently disabled!");
     } else {
       const randomId = Math.floor(Math.random() * 999999999);
