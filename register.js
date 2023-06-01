@@ -1,5 +1,5 @@
 const { REST, Routes } = require('discord.js');
-const { token } = require('../token.json');
+const { token } = require('./token.json');
 const fs = require('fs');
 const path = require('path');
 const clientId = '1094952046035222559'
@@ -28,6 +28,7 @@ const rest = new REST({ version: '10' }).setToken(token);
     );
 
     console.log(`[Commands] Successfully registered ${commands.length} commands\n`);
+    console.log("\x1b[36m%s\x1b[0m", `----------- Console ----------\n`);
   } catch (error) {
     console.error(error);
   }
