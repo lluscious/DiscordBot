@@ -1,22 +1,11 @@
-# Random bot im making for fun
-idk
+# Bot
+data/* is now ignored, read DataStructure.md for how you can make your own or configure the code yourself
 
-## help :pleading_face:
-mango 🥭
+## Credits / Help
+Mango :mango:
 
-## todo
-- add author + author icons
-- add favorites
+## ToDo
+- Revamp configuration
+- More console commands for configuration
 
-## finished todos
-- add embed thumbnail editing
-- improve embed description editing
-- add title URLs
-- add footer editing + footer icon
-- merge like to profile command group
-- re add unused command into "fun" command group ( just re added them instead )
 
-## Extra
-- added console commands
-- revamped profile editing into modal editing
-            

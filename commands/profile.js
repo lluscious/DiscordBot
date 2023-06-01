@@ -10,7 +10,7 @@ const {
 } = require("discord.js");
 const fs = require("fs");
 const path = require("path");
-const client = require("../index");
+const client = require("../client");
 
 module.exports = {
   data: new SlashCommandBuilder()
