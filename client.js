@@ -41,11 +41,16 @@ for (const file of commandFiles) {
 }
 
 // ---------------------------------  Command Error Logging  ---------------------------------  //
+
 client.on(Events.InteractionCreate, async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
+
   const command = client.commands.get(interaction.commandName);
 
   if (!command) return;
+
+  const permissionData = require('./data/permissionData.json')
+  const userPermission = permissionData[interaction.user.i]
 
   try {
     await command.execute(interaction);
