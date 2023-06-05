@@ -24,11 +24,11 @@ module.exports = () => {
       const commandData = JSON.parse(cmd);
 
       if (object in channelConfigData) {
-        channelConfigData[object] = newValue;
+        channelData[object] = newValue;
         fs.writeFileSync(channel_path, JSON.stringify(channelData))
         console.log(`[Config] Successfully configured ${object}!`)
       } else if (object in commandConfigData) {
-        commandConfigData[object] = newValue;
+        commandData[object] = newValue;
         fs.writeFileSync(command_path, JSON.stringify(commandData))
         console.log(`[Config] Successfully configured ${object}!`)
       } else {
