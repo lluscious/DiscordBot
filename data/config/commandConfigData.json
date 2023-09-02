@@ -1,0 +1,9 @@
+{
+  "SlashCommandConfession": true,
+  "SlashCommandDefine": true,
+  "SlashCommandColor": true,
+  "SlashCommandRobloxGame": true,
+  "SlashCommandRobloxUser": true,
+  "SlashCommandUID": true,
+  "SlashCommamdGroupModeration": true
+}
