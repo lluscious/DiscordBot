@@ -49,9 +49,6 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
   if (!command) return;
 
-  const permissionData = require('./data/permissionData.json')
-  const userPermission = permissionData[interaction.user.i]
-
   try {
     await command.execute(interaction);
   } catch (error) {

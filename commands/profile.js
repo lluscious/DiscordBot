@@ -71,18 +71,18 @@ module.exports = {
         size: 4096,
       });
 
-      delete require.cache[require.resolve("../data/likes.json")];
-      delete require.cache[require.resolve("../data/profile.json")];
-      delete require.cache[require.resolve("../data/username.json")];
+      delete require.cache[require.resolve("../data/likesData.json")];
+      delete require.cache[require.resolve("../data/profileData.json")];
+      delete require.cache[require.resolve("../data/userData.json")];
 
-      const usernameData = require("../data/username.json");
+      const usernameData = require("../data/userData.json");
       const username = usernameData[user];
 
-      const favoriteData = require("../data/likes.json");
+      const favoriteData = require("../data/likesData.json");
       const likes = favoriteData[`${user}_likes`];
       const liked = favoriteData[`${user}_liked`];
 
-      const profileData = require("../data/profile.json");
+      const profileData = require("../data/profileData.json");
       const color = profileData[`${user}_color`];
       const desc = profileData[`${user}_desc`];
       const bannerURL = profileData[`${user}_url`];
@@ -156,10 +156,10 @@ module.exports = {
     // ---------------------------------  Subcommand : Edit --------------------------------- //
     else if (sub === "edit") {
       const type = interaction.options.getString("type");
-      delete require.cache[require.resolve("../data/username.json")];
-      const usernameJSON = require("../data/username.json");
-      delete require.cache[require.resolve("../data/profile.json")];
-      const profileJSON = require("../data/profile.json");
+      delete require.cache[require.resolve("../data/userData.json")];
+      const usernameJSON = require("../data/userData.json");
+      delete require.cache[require.resolve("../data/profileData.json")];
+      const profileJSON = require("../data/profileData.json");
 
       const id = interaction.user.id;
       if (!(interaction.user.id in usernameJSON)) {
@@ -303,18 +303,18 @@ module.exports = {
               resolve();
 
               // Edit data
-              delete require.cache[require.resolve("../data/username.json")];
+              delete require.cache[require.resolve("../data/userData.json")];
               const username_path = path.join(
                 __dirname,
-                "../data/username.json"
+                "../data/userData.json"
               );
               const user = fs.readFileSync(username_path);
               const userData = JSON.parse(user);
               userData[id] = newUser;
               fs.writeFileSync(username_path, JSON.stringify(userData));
 
-              delete require.cache[require.resolve("../data/profile.json")];
-              const profile_path = path.join(__dirname, "../data/profile.json");
+              delete require.cache[require.resolve("../data/profileData.json")];
+              const profile_path = path.join(__dirname, "../data/profileData.json");
               const profile = fs.readFileSync(profile_path);
               const profileData = JSON.parse(profile);
               profileData[`${id}_desc`] = newDesc;
@@ -354,8 +354,8 @@ module.exports = {
                 newFicon = "None";
               } // yandere dev coding moment
 
-              delete require.cache[require.resolve("../data/profile.json")];
-              const profile_path = path.join(__dirname, "../data/profile.json");
+              delete require.cache[require.resolve("../data/profileData.json")];
+              const profile_path = path.join(__dirname, "../data/profileData.json");
               const profile = fs.readFileSync(profile_path);
               const profileData = JSON.parse(profile);
               profileData[`${id}_url`] = newURL;
@@ -383,9 +383,9 @@ module.exports = {
         });
         return;
       }
-      delete require.cache[require.resolve("../data/likes.json")];
-      const LikeAmount = require("../data/likes.json");
-      const likes_path = path.join(__dirname, "../data/likes.json");
+      delete require.cache[require.resolve("../data/likesData.json")];
+      const LikeAmount = require("../data/likesData.json");
+      const likes_path = path.join(__dirname, "../data/likesData.json");
       const likes = fs.readFileSync(likes_path);
       const likeData = JSON.parse(likes);
       const newLikesAmount = LikeAmount[`${user.id}_likes`] + 1;
@@ -422,8 +422,8 @@ module.exports = {
 
     // ---------------------------------  Subcommand : Register --------------------------------- //
     if (sub == "register") {
-      delete require.cache[require.resolve("../data/username.json")];
-      const usernameData = require("../data/username.json");
+      delete require.cache[require.resolve("../data/userData.json")];
+      const usernameData = require("../data/userData.json");
 
       if (interaction.user.id in usernameData) {
         interaction.reply("You are already registered!");
@@ -460,14 +460,14 @@ module.exports = {
 
         const fs = require("fs/promises");
 
-        const usernamePath = path.join(__dirname, "../data/username.json");
+        const usernamePath = path.join(__dirname, "../data/userData.json");
         const usernameHandler = await fs.readFile(usernamePath, "utf8");
         const userData = JSON.parse(usernameHandler);
         userData[interaction.user.id] = usernameInput;
         const userOverwriteData = JSON.stringify(userData, null, 2);
         await fs.writeFile(usernamePath, userOverwriteData);
 
-        const balancePath = path.join(__dirname, "../data/likes.json");
+        const balancePath = path.join(__dirname, "../data/likesData.json");
         const balanceHandler = await fs.readFile(balancePath, "utf8");
         const balanceData = JSON.parse(balanceHandler);
         balanceData[`${interaction.user.id}_likes`] = 0;
@@ -475,7 +475,7 @@ module.exports = {
         const balanceOverwriteData = JSON.stringify(balanceData, null, 2);
         await fs.writeFile(balancePath, balanceOverwriteData);
 
-        const profilePath = path.join(__dirname, "../data/profile.json");
+        const profilePath = path.join(__dirname, "../data/profileData.json");
         const profileHander = await fs.readFile(profilePath, "utf8");
         const profileData = JSON.parse(profileHander);
         profileData[`${interaction.user.id}_color`] = "#1c1c1c";

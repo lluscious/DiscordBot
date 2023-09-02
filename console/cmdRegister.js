@@ -15,8 +15,11 @@ module.exports = () => {
 
       if (cmd == "all") {
         require("../register");
-      } else {
-
+      } else if (cmd == null) {
+        console.error(`Invalid Arguments.\nUsage: bot.cmd.register [cmd]\nEg: bot.cmd.register about\n`)
+      } else if (!cmd.includes('../commands/')) {
+        console.error(`Invalid Command: ${cmd}\n`)
+      }else {
 
         const commands = [];
         commands.push(require(`../commands/${cmd}.js`).data.toJSON());
