@@ -28,9 +28,12 @@ function truncateString(inputString, maxLength) {
         message.channel.sendTyping();
         const prompt = message.content;
         const response = await chat.sendAndAwaitResponse(prompt, true);
-        const truncatedString = truncateString(response.text, maxLength);
-
-        message.channel.send(truncatedString);
+        if (response.text.length > 2000){
+          const truncatedString = truncateString(response.text, maxLength);
+          message.channel.send(truncatedString);
+        } else {
+          message.channel.send(response.text)
+        }
       } catch (error) {
         console.error("Error handling message:", error);
       }
