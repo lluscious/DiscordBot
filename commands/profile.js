@@ -6,9 +6,7 @@ const {
   ActionRowBuilder,
   Events,
   EmbedBuilder,
-  AutoModerationActionExecution,
 } = require("discord.js");
-const fs = require("fs");
 const path = require("path");
 const client = require("../client");
 
@@ -49,7 +47,7 @@ module.exports = {
         .addUserOption((option) =>
           option
             .setName("user")
-            .setDescription("User's profile to like")
+            .setDescription("user's profile to like")
             .setRequired(true)
         )
     )
@@ -59,14 +57,14 @@ module.exports = {
         .setDescription("Register your profile for the bot")
     ),
   async execute(interaction) {
-    const sub = interaction.options.getSubcommand();
+    const Subcommand = interaction.options.getSubcommand();
 
     // ---------------------------------  Subcommand : View  ---------------------------------  //
 
-    if (sub === "view") {
-      const l = interaction.options.getUser("user");
-      const user = l.id;
-      const avatarURL = l.avatarURL({
+    if (Subcommand === "view") {
+      const interGetUser = interaction.options.getUser("intUserID");
+      const intUserID = interGetUser.id;
+      const avatarURL = interGetUser.avatarURL({
         format: "png",
         size: 4096,
       });
@@ -76,23 +74,23 @@ module.exports = {
       delete require.cache[require.resolve("../data/userData.json")];
 
       const usernameData = require("../data/userData.json");
-      const username = usernameData[user];
+      const username = usernameData[intUserID];
 
       const favoriteData = require("../data/likesData.json");
-      const likes = favoriteData[`${user}_likes`];
-      const liked = favoriteData[`${user}_liked`];
+      const likes = favoriteData[`${intUserID}_likes`];
+      const liked = favoriteData[`${intUserID}_liked`];
 
       const profileData = require("../data/profileData.json");
-      const color = profileData[`${user}_color`];
-      const desc = profileData[`${user}_desc`];
-      const bannerURL = profileData[`${user}_url`];
-      const icon = profileData[`${user}_icon`];
-      const footer = profileData[`${user}_footer`];
-      const ficon = profileData[`${user}_ficon`];
+      const color = profileData[`${intUserID}_color`];
+      const desc = profileData[`${intUserID}_desc`];
+      const bannerURL = profileData[`${intUserID}_url`];
+      const icon = profileData[`${intUserID}_icon`];
+      const footer = profileData[`${intUserID}_footer`];
+      const ficon = profileData[`${intUserID}_ficon`];
 
-      if (!(user in usernameData)) {
+      if (!(intUserID in usernameData)) {
         interaction.reply(
-          "User isn't registered, Please register using the /register command!"
+          "intUserID isn't registered, Please register using the /register command!"
         );
       } else {
         const profile = new EmbedBuilder()
@@ -107,11 +105,11 @@ module.exports = {
           })
           .addFields({
             name: "Discord Username",
-            value: l.tag,
+            value: interGetUser.tag,
           })
           .addFields({
             name: "Join Date",
-            value: l.createdAt.toUTCString(),
+            value: interGetUser.createdAt.toUTCString(),
           })
           .setFooter({ text: footer })
           .setColor(color)
@@ -136,7 +134,7 @@ module.exports = {
         }
 
         try {
-          if (user == interaction.user.id) {
+          if (intUserID == interaction.intUserID.id) {
              await profile.setTitle(`✦ Your Profile (${username})`);
             await interaction.reply({
               embeds: [profile],
@@ -154,15 +152,15 @@ module.exports = {
     }
 
     // ---------------------------------  Subcommand : Edit --------------------------------- //
-    else if (sub === "edit") {
+    else if (Subcommand === "edit") {
       const type = interaction.options.getString("type");
       delete require.cache[require.resolve("../data/userData.json")];
       const usernameJSON = require("../data/userData.json");
       delete require.cache[require.resolve("../data/profileData.json")];
       const profileJSON = require("../data/profileData.json");
 
-      const id = interaction.user.id;
-      if (!(interaction.user.id in usernameJSON)) {
+      const id = interaction.intUserID.id;
+      if (!(interaction.intUserID.id in usernameJSON)) {
         interaction.reply(`${id} data not found!`);
         return;
       }
@@ -287,17 +285,17 @@ module.exports = {
 
               // Input Values
               if (!newUser) {
-                newUser = usernameJSON[`${interaction.user.id}`];
+                newUser = usernameJSON[`${interaction.intUserID.id}`];
               }
 
               if (!newDesc) {
-                newDesc = profileJSON[`${interaction.user.id}_desc`];
+                newDesc = profileJSON[`${interaction.intUserID.id}_desc`];
               } else if (newDesc == "N/A") {
                 newDesc = "";
               }
 
               if (!newColor) {
-                newColor = profileJSON[`${interaction.user.id}_color`];
+                newColor = profileJSON[`${interaction.intUserID.id}_color`];
               }
 
               resolve();
@@ -308,8 +306,8 @@ module.exports = {
                 __dirname,
                 "../data/userData.json"
               );
-              const user = fs.readFileSync(username_path);
-              const userData = JSON.parse(user);
+              const intUserID = fs.readFileSync(username_path);
+              const userData = JSON.parse(intUserID);
               userData[id] = newUser;
               fs.writeFileSync(username_path, JSON.stringify(userData));
 
@@ -334,22 +332,22 @@ module.exports = {
               newFooter = interaction.fields.getTextInputValue("input_footer");
               newFicon = interaction.fields.getTextInputValue("input_ficon");
               if (!newURL) {
-                newURL = profileJSON[`${interaction.user.id}_url`];
+                newURL = profileJSON[`${interaction.intUserID.id}_url`];
               } else if (newURL == "N/A") {
                 newURL = "None";
               }
               if (!newIcon) {
-                newIcon = profileJSON[`${interaction.user.id}_icon`];
+                newIcon = profileJSON[`${interaction.intUserID.id}_icon`];
               } else if (newIcon == "N/A") {
                 newIcon = "None";
               }
               if (!newFooter) {
-                newFooter = profileJSON[`${interaction.user.id}_footer`];
+                newFooter = profileJSON[`${interaction.intUserID.id}_footer`];
               } else if (newFooter == "N/A") {
                 newFooter = "";
               }
               if (!newFicon) {
-                newFicon = profileJSON[`${interaction.user.id}_ficon`];
+                newFicon = profileJSON[`${interaction.intUserID.id}_ficon`];
               } else if (newFicon == "N/A") {
                 newFicon = "None";
               } // yandere dev coding moment
@@ -374,9 +372,9 @@ module.exports = {
 
     // ---------------------------------  Subcommand : Like --------------------------------- //
 
-    if (sub == "like") {
-      const user = interaction.options.getUser("user");
-      if (user.id == interaction.user.id) {
+    if (Subcommand == "like") {
+      const intUserID = interaction.options.getUser("intUserID");
+      if (intUserID.id == interaction.intUserID.id) {
         interaction.reply({
           content: `You can't like your own profile!`,
           ephemeral: true,
@@ -388,15 +386,15 @@ module.exports = {
       const likes_path = path.join(__dirname, "../data/likesData.json");
       const likes = fs.readFileSync(likes_path);
       const likeData = JSON.parse(likes);
-      const newLikesAmount = LikeAmount[`${user.id}_likes`] + 1;
-      const newLikedAmount = LikeAmount[`${interaction.user.id}_liked`] + 1;
-      likeData[`${user.id}_likes`] = newLikesAmount;
-      likeData[`${interaction.user.id}_liked`] = newLikedAmount;
+      const newLikesAmount = LikeAmount[`${intUserID.id}_likes`] + 1;
+      const newLikedAmount = LikeAmount[`${interaction.intUserID.id}_liked`] + 1;
+      likeData[`${intUserID.id}_likes`] = newLikesAmount;
+      likeData[`${interaction.intUserID.id}_liked`] = newLikedAmount;
       fs.writeFileSync(likes_path, JSON.stringify(likeData));
 
-      if (!user.id in LikeAmount || !interaction.user.id in LikeAmount) {
+      if (!intUserID.id in LikeAmount || !interaction.intUserID.id in LikeAmount) {
         return interaction.reply({
-          content: "User not registered!",
+          content: "intUserID not registered!",
           ephemeral: true,
         });
       }
@@ -404,7 +402,7 @@ module.exports = {
       const likeDM = new EmbedBuilder()
         .setTitle("♡ New like recieved!")
         .setDescription(
-          `${interaction.user.tag} liked your profile!\n\n♡ You now have **${newLikesAmount}** likes!`
+          `${interaction.intUserID.tag} liked your profile!\n\n♡ You now have **${newLikesAmount}** likes!`
         )
         .setThumbnail(
           "https://preview.redd.it/ayato-emotes-from-genshin-x-heytea-collab-v0-itdbi639s6m91.png?width=141&format=png&auto=webp&v=enabled&p=e&s=9ea734e2601843600584a54e4935261e3cc7f78f"
@@ -412,26 +410,26 @@ module.exports = {
         .setTimestamp()
         .setColor("#94d1ff");
       interaction.reply({
-        content: `Successfully liked ${user.tag}'s profile!`,
+        content: `Successfully liked ${intUserID.tag}'s profile!`,
         ephemeral: true,
       });
-      user.send({
+      intUserID.send({
         embeds: [likeDM],
       });
     }
 
     // ---------------------------------  Subcommand : Register --------------------------------- //
-    if (sub == "register") {
+    if (Subcommand == "register") {
       delete require.cache[require.resolve("../data/userData.json")];
       const usernameData = require("../data/userData.json");
 
-      if (interaction.user.id in usernameData) {
+      if (interaction.intUserID.id in usernameData) {
         interaction.reply("You are already registered!");
         return;
       } else {
         const form = new ModalBuilder()
           .setCustomId("register")
-          .setTitle("User Registration");
+          .setTitle("intUserID Registration");
 
         const username = new TextInputBuilder()
           .setCustomId("username")
@@ -463,28 +461,28 @@ module.exports = {
         const usernamePath = path.join(__dirname, "../data/userData.json");
         const usernameHandler = await fs.readFile(usernamePath, "utf8");
         const userData = JSON.parse(usernameHandler);
-        userData[interaction.user.id] = usernameInput;
+        userData[interaction.intUserID.id] = usernameInput;
         const userOverwriteData = JSON.stringify(userData, null, 2);
         await fs.writeFile(usernamePath, userOverwriteData);
 
         const balancePath = path.join(__dirname, "../data/likesData.json");
         const balanceHandler = await fs.readFile(balancePath, "utf8");
         const balanceData = JSON.parse(balanceHandler);
-        balanceData[`${interaction.user.id}_likes`] = 0;
-        balanceData[`${interaction.user.id}_liked`] = 0;
+        balanceData[`${interaction.intUserID.id}_likes`] = 0;
+        balanceData[`${interaction.intUserID.id}_liked`] = 0;
         const balanceOverwriteData = JSON.stringify(balanceData, null, 2);
         await fs.writeFile(balancePath, balanceOverwriteData);
 
         const profilePath = path.join(__dirname, "../data/profileData.json");
         const profileHander = await fs.readFile(profilePath, "utf8");
         const profileData = JSON.parse(profileHander);
-        profileData[`${interaction.user.id}_color`] = "#1c1c1c";
-        profileData[`${interaction.user.id}_desc`] = "?";
-        profileData[`${interaction.user.id}_url`] = "None";
-        profileData[`${interaction.user.id}_icon`] = "None";
-        profileData[`${interaction.user.id}_footer`] =
+        profileData[`${interaction.intUserID.id}_color`] = "#1c1c1c";
+        profileData[`${interaction.intUserID.id}_desc`] = "?";
+        profileData[`${interaction.intUserID.id}_url`] = "None";
+        profileData[`${interaction.intUserID.id}_icon`] = "None";
+        profileData[`${interaction.intUserID.id}_footer`] =
           "Customize your profile by using /profile edit!";
-        profileData[`${interaction.user.id}_ficon`] = "None";
+        profileData[`${interaction.intUserID.id}_ficon`] = "None";
         const profileOverwriteData = JSON.stringify(profileData, null, 2);
         await fs.writeFile(profilePath, profileOverwriteData);
       }

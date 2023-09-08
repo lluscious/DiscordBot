@@ -10,21 +10,19 @@ function truncateString(inputString, maxLength) {
 }
 
 (async () => {
-  try {
+  delete require.cache[require.resolve("../data/config/commandConfigData.json")];
+  const {EventCAIMessage} = require("../data/config/commandConfigData.json");
+  
+  if (EventCAIMessage == true){
+    try {
     await characterAI.authenticateAsGuest();
     const characterId = "IC-9wkDjyCqGV-_Gjs9i88hM0yUrL8TEdApWOWLAl48";
     const chat = await characterAI.createOrContinueChat(characterId);
-
     client.on(Events.MessageCreate, async (message) => {
       try {
-        delete require.cache[
-          require.resolve("../data/config/channelConfigData.json")
-        ];
+        delete require.cache[require.resolve("../data/config/channelConfigData.json")];
         const { BotChatCAIChannel } = require("../data/config/channelConfigData.json");
         if (message.author.bot || message.channelId !== BotChatCAIChannel) return;
-
-        const maxLength = 2000;
-        
         message.channel.sendTyping();
         const prompt = message.content;
         const response = await chat.sendAndAwaitResponse(prompt, true);
@@ -35,5 +33,7 @@ function truncateString(inputString, maxLength) {
     });
   } catch (authError) {
     console.error(authError);
+  }} else {
+    return;
   }
 })();

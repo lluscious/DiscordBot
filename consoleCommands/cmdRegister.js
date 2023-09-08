@@ -1,9 +1,9 @@
 const { REST, Routes } = require("discord.js");
-const { token } = require("../token.json");
 const fs = require("fs");
 const path = require("path");
-const clientId = "1094952046035222559";
-const rest = new REST({ version: "10" }).setToken(token);
+const {BotClientAccessToken} = require('../developerTools/Data/accessTokens.json')
+const {BotClientID} = require('../developerTools/Data/accessTokens.json')
+const rest = new REST({ version: "10" }).setToken(BotClientAccessToken);
 
 module.exports = () => {
   process.stdin.on("data", (data) => {
@@ -29,7 +29,7 @@ module.exports = () => {
             console.log(`[Commands] Registering ${cmd}.js`);
 
             await rest.put(
-              Routes.applicationCommands(clientId),
+              Routes.applicationCommands(BotClientID),
               { body: commands }
             );
 

@@ -3,9 +3,6 @@ const {
   EmbedBuilder,
   PermissionFlagsBits,
 } = require("discord.js");
-const fs = require("fs");
-const path = require("path");
-const internal = require("stream");
 const wait = require("node:timers/promises").setTimeout;
 
 module.exports = {
@@ -77,13 +74,18 @@ module.exports = {
     delete require.cache[require.resolve("../data/config/commandConfigData.json")];
     const { SlashCommandGroupModeration } = require("../data/config/commandConfigData.json");
     if (SlashCommandGroupModeration == false) {
-      interaction.reply("This command is currently disabled!");
+      const errorCodes = require('../developerTools/Data/errorCodesConfigData.json')
+      const disabledEmbed = new EmbedBuilder()
+      .setTitle(`${errorCodes[-40].ErrorTitle} ${errorCodes[-40].ErrorPossibleCause}`)
+      .setDescription(errorCodes[-40].ErrorDescription)
+      .setFooter({text: `Error Code: ${errorCodes[-40].ErrorID}`})
+      return interaction.reply({ embeds: [disabledEmbed] });
     } else {
-      const sub = interaction.options.getSubcommand();
+      const Subcommand = interaction.options.getSubcommand();
 
       // ---------------------------------  Subcommand : Ban  ---------------------------------  //
 
-      if (sub === "ban") {
+      if (Subcommand === "ban") {
         const bannedUser = interaction.options.getUser("user");
         const reason =
           interaction.options.getString("reason") || "No reason provided";
@@ -129,23 +131,16 @@ module.exports = {
           await interaction.guild.members.ban(bannedUser, { reason });
         } catch (error) {
           console.error(`[Error] ${error}`);
-          const errorEmbed = new EmbedBuilder()
-            .setTitle(`⚠️ Error!`)
-            .setDescription(`**${error}**`)
-            .setTimestamp();
-          await interaction.reply({ embeds: [errorEmbed] });
         }
       }
 
       // ---------------------------------  Subcommand : Timeout  ---------------------------------  //
-      else if (sub === "timeout") {
-        const t = interaction.options.getUser("user");
-        const r = interaction.options.getMember("user");
-        const g =
-          interaction.options.getString("reason") || "No reason provided";
-        const v = interaction.options.getString("duration");
-        const wait = require("node:timers/promises").setTimeout;
-        const d = v * 60 * 1000;
+      else if (Subcommand === "timeout") {
+        const CommandTimoutGetUser = interaction.options.getUser("user");
+        const CommandTimoutGetMember = interaction.options.getMember("user");
+        const stringOptionReason = interaction.options.getString("reason") || "No reason provided";
+        const stringOptionDuration = interaction.options.getString("duration")
+        const intOptionDuration = stringOptionDuration * 60 * 1000;
 
         if (
           !interaction.member.permissions.has(
@@ -161,98 +156,93 @@ module.exports = {
           });
         }
 
-        await r.timeout(d, g);
-        console.log(`[Command_Handling] User: ${t.tag}`);
-        console.log(`[Command_Handling] Duration: ${v}m`);
+        await CommandTimoutGetMember.timeout(intOptionDuration, stringOptionReason);
+        console.log(`[Command_Handling] User: ${CommandTimoutGetUser.tag}`);
+        console.log(`[Command_Handling] Duration: ${stringOptionDuration}m`);
         console.log(`[Command_Handling] Responsible: ${interaction.user.tag}`);
 
-        const embedf = new EmbedBuilder()
+        const Embed_Timeout = new EmbedBuilder()
           .setColor("#73a6ff")
           .setTitle("✦ Moderation : Timeout")
-          .setDescription(`**${t} has been timed out for ${v} minutes**`)
-          .addFields({ name: "Reason", value: g })
+          .setDescription(`**${CommandTimoutGetUser} has been timed out for ${stringOptionDuration} minutes**`)
+          .addFields({ name: "Reason", value: stringOptionReason })
           .setTimestamp();
 
         await interaction.deferReply();
         await wait(1000);
-        interaction.editReply({ embeds: [embedf], ephemeral: false });
+        interaction.editReply({ embeds: [Embed_Timeout], ephemeral: false });
 
-        const gembed = new EmbedBuilder()
+        const Embed_TimeoutUser = new EmbedBuilder()
           .setColor("#73a6ff")
           .setTitle("✦ Notice!")
           .setDescription(
             `**You were timed out in ${interaction.guild.name}!**.`
           )
-          .addFields({ name: "Reason", value: g })
+          .addFields({ name: "Reason", value: stringOptionReason })
           .setFooter({ text: `Responsible Moderator: ${interaction.user.tag}` })
           .setTimestamp();
 
         try {
-          await r.send({ embeds: [gembed] });
+          await CommandTimoutGetMember.send({ embeds: [Embed_TimeoutUser] });
         } catch (error) {
           console.error(`[Error] ${error}`);
-          const errorEmbed = new EmbedBuilder()
-            .setTitle(`⚠️ Error!`)
-            .setDescription(`**${error}**`)
-            .setTimestamp();
-          await interaction.reply({ embeds: [errorEmbed] });
         }
       }
 
       // ---------------------------------  Subcommand : Message  ---------------------------------  //
 
-      else if (sub === "message") {
-        const u = interaction.options.getUser("user");
-        const f = interaction.options.getString("message");
-        const p = interaction.options.getString("hide_user");
-        const t = interaction.user;
+      else if (Subcommand === "message") {
+        const CommandMsgGetUser = interaction.options.getUser("user");
+        const StringGetMsg = interaction.options.getString("message");
+        const choiceHideUser = interaction.options.getString("hide_user");
+        const CommandTimoutGetUser = interaction.user;
 
         if (
           !interaction.member.permissions.has(
             PermissionFlagsBits.ManageMessages
           )
         ) {
-          console.log(`[Command_Handling] ${t.tag} denied to use command: /dm`);
+          console.log(`[Command_Handling] ${CommandTimoutGetUser.tag} denied to use command: /dm`);
           return interaction.reply({
             content: "You do not have permission to use this command!",
             ephemeral: true,
           });
         }
 
-        const gembed = new EmbedBuilder()
+        const Embed_Message = new EmbedBuilder()
           .setColor("#73a6ff")
           .setTitle("✦ New Message!")
           .setDescription(
-            `**You have recieved a new message from ${interaction.guild.name}!**\n\n${f}\n\n**If you have any questions or issues please open a ticket.**`
+            `**You have recieved a new message from ${interaction.guild.name}!**\n\n${StringGetMsg}\n\n**If you have any questions or issues please open a ticket.**`
           )
           .setThumbnail(interaction.guild.iconURL({ dynamic: true }))
           .setTimestamp()
-          .setFooter({ text: `Sender: ${t.tag}` });
+          .setFooter({ text: `Sender: ${interaction.user.tag}` });
 
-        const r = new EmbedBuilder()
+        const Embed_LogAction = new EmbedBuilder()
           .setColor("#73a6ff")
           .setTitle("✦ Modlog : DM Command")
           .setDescription(
-            `Sender: **${interaction.user.tag}**\n\nMessage: **${f}**\n\nSent to: **${u.tag}**`
+            `Sender: **${interaction.user.tag}**\n\nMessage: **${StringGetMsg}**\n\nSent to: **${CommandMsgGetUser.tag}**`
           )
           .setTimestamp();
 
         delete require.cache[require.resolve("../data/config/channelConfigData.json")];
         const { BotModeratorLoggingSendChannel } = require("../data/config/channelConfigData.json");
-        const d = BotModeratorLoggingSendChannel;
-        const channel = interaction.guild.channels.resolve(d);
+        const ChannelLogging = BotModeratorLoggingSendChannel;
+        const ChannelLogging1 = interaction.guild.channels.resolve(ChannelLogging);
 
-        if (p == true) {
+        if (choiceHideUser == true) {
           await interaction.deferReply({ ephemeral: true });
           await wait(1000);
           gembed.setFooter({ text: `Sender: ${interaction.guild.name}` });
           interaction.editReply({
-            content: `Successfully sent message to ${u.tag}`,
+            content: `Successfully sent message to ${CommandMsgGetUser.tag}`,
             ephemeral: true,
           });
-          await channel.send({ embeds: [r] });
-          await u.send({ embeds: [gembed] });
-        } else if (u.id == t.id) {
+          await ChannelLogging1.send({ embeds: [Embed_LogAction] });
+          await CommandMsgGetUser.send({ embeds: [Embed_Message] });
+        } else if (CommandMsgGetUser.id == CommandMsgGetUser.id) {
           interaction.editReply({
             content: `Why are you sending a message to yourself...?`,
             ephemeral: true,
@@ -262,18 +252,13 @@ module.exports = {
             await interaction.deferReply({ ephemeral: true });
             await wait(1000);
             interaction.editReply({
-              content: `Successfully sent message to ${u.tag}`,
+              content: `Successfully sent message to ${CommandMsgGetUser.tag}`,
               ephemeral: true,
             });
-            await channel.send({ embeds: [r] });
-            await u.send({ embeds: [gembed] });
+            await ChannelLogging1.send({ embeds: [Embed_LogAction] });
+            await CommandMsgGetUser.send({ embeds: [Embed_Message] });
           } catch (error) {
             console.error(`[Error] ${error}`);
-            const errorEmbed = new EmbedBuilder()
-              .setTitle(`⚠️ Error!`)
-              .setDescription(`**${error}**`)
-              .setTimestamp();
-            await interaction.reply({ embeds: [errorEmbed] });
           }
         }
       }

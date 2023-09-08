@@ -21,7 +21,12 @@ module.exports = {
     delete require.cache[require.resolve("../data/config/commandConfigData.json")];
     const { SlashCommandUID } = require("../data/config/commandConfigData.json");
     if (SlashCommandUID == false) {
-      interaction.reply("This command is currently disabled!");
+      const errorCodes = require('../developerTools/Data/errorCodesConfigData.json')
+      const disabledEmbed = new EmbedBuilder()
+      .setTitle(`${errorCodes[-40].ErrorTitle} ${errorCodes[-40].ErrorPossibleCause}`)
+      .setDescription(errorCodes[-40].ErrorDescription)
+      .setFooter({text: `Error Code: ${errorCodes[-40].ErrorID}`})
+      return interaction.reply({ embeds: [disabledEmbed] });
     } else {
       const s = interaction.options.getString("server");
       const uid = Math.floor(Math.random() * 99999999);

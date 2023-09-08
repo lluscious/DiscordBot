@@ -1,5 +1,5 @@
-
 ### permissionData.json
+
 - UserPermission_Admin
 - UserPermission_ConsoleAccess
 - UserPermission_DataAccess
@@ -10,26 +10,37 @@
 {userID}: [permissions]
 
 ### profileData.json
-- {userID}_desc: {string}
-- {userID}_color: {string}
-- {userID}_icon: {string}
-- {userID}_url: {string}
-- {userID}_footer: {string}
-- {userID}_ficon: {string}
+
+- {userID}\_desc: {string}
+- {userID}\_color: {string}
+- {userID}\_icon: {string}
+- {userID}\_url: {string}
+- {userID}\_footer: {string}
+- {userID}\_ficon: {string}
 
 ### userData.json
+
 - {userID}: {string}
 
 ### likesData.json
-- {userID}_likes: {integer}
-- {userID}_liked: {integer}
+
+- {userID}\_likes: {integer}
+- {userID}\_liked: {integer}
 
 ### /config/channelConfigData.json
-- {guildID}: [
-    {object}: {value}
-]
+
+- {
+  object: value
+  }
+
+### /developerTools/Data/accessTokens.json
+- {
+  "BotClientAccessToken": "",
+  "BotClientID": ""
+  }
 
 ### /config/commandConfigData.json
-- {guildID}: [
-    {command}: {boolean}
-]
+
+- {
+  command: {boolean}
+  }

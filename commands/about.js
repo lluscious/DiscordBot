@@ -1,9 +1,9 @@
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
+const { SlashCommandBuilder, EmbedBuilder, Embed } = require("discord.js");
 const wait = require("node:timers/promises").setTimeout;
 module.exports = {
   data: new SlashCommandBuilder().setName("about").setDescription("About me!"),
   async execute(interaction) {
-    const d = new EmbedBuilder()
+    const EmbedAbout = new EmbedBuilder()
       .setTitle("✦ Ayato~")
       .setColor("#73a6ff")
       .setThumbnail(
@@ -17,6 +17,6 @@ module.exports = {
       );
     await interaction.deferReply();
     await wait(1000);
-    return interaction.editReply({ embeds: [d] });
+    return interaction.editReply({ embeds: [EmbedAbout] });
   },
 };
