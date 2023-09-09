@@ -11,22 +11,22 @@ module.exports = () => {
       const id = args[1];
       const newData = args[2];
 
-      delete require.cache[require.resolve("../data/profileData.json")];
-      const profile_path = path.join(__dirname, "../data/profileData.json");
+      delete require.cache[require.resolve("../data/userProfileData.json")];
+      const profile_path = path.join(__dirname, "../data/userProfileData.json");
       const profile = fs.readFileSync(profile_path);
       const profileData = JSON.parse(profile);
 
-      delete require.cache[require.resolve("../data/likesData.json")];
-      const likes_path = path.join(__dirname, "../data/likesData.json");
+      delete require.cache[require.resolve("../data/userProfileData.json")];
+      const likes_path = path.join(__dirname, "../data/userProfileData.json");
       const likes = fs.readFileSync(likes_path);
       const likesData = JSON.parse(likes);
 
-      delete require.cache[require.resolve("../data/userData.json")];
-      const user_path = path.join(__dirname, "../data/userData.json");
+      delete require.cache[require.resolve("../data/userProfileData.json")];
+      const user_path = path.join(__dirname, "../data/userProfileData.json");
       const user = fs.readFileSync(user_path);
       const userData = JSON.parse(user);
 
-      const usernameData = require("../data/userData.json");
+      const usernameData = require("../data/userProfileData.json");
       let editing = true;
 
       if (usernameData[id] == undefined) {

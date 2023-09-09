@@ -20,11 +20,11 @@
         "ErrorDescription": "This command is restricted for authorized users only.",
         "ErrorTitle": "Restricted Command!"
     },
-    "namiyen": {
-        "ErrorName":"haha an error",
-        "ErrorID": "namiyen",
-        "ErrorPossibleCause": "SkillIssueCode",
+    "0": {
+        "ErrorName":"ErrorCommandFail",
+        "ErrorID": "namiyen!!",
+        "ErrorPossibleCause": "CodeFunctionError",
         "ErrorDescription": "?",
-        "ErrorTitle": "haha an error"
+        "ErrorTitle": "Haha an error"
     }
 }

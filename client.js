@@ -53,6 +53,14 @@ client.on(Events.InteractionCreate, async (interaction) => {
   try {
     await command.execute(interaction);
   } catch (error) {
+    const errorCodes = require('./developerTools/Data/errorCodesConfigData.json');
+    const errorEmbed = new EmbedBuilder()
+    .setTitle(`${errorCodes[0].ErrorTitle}`)
+    .setDescription(`There was an issue running the command...`)
+    .addFields({name: 'Error', value: error.toString()})
+    .addFields({name: 'Possible Cause', value: errorCodes[0].ErrorPossibleCause})
+    .setFooter({text: `Error Code: ${errorCodes[0].ErrorID}`})
+    interaction.reply({embeds: [errorEmbed]})
     console.error(error)
   }
 });

@@ -6,9 +6,9 @@ module.exports = () => {
       const command = args[0];
       const id = args[1];
 
-      const usernameData = require("../data/userData.json");
-      const profileData = require("../data/profileData.json");
-      const likesData = require("../data/likesData.json");
+      const usernameData = require("../data/userProfileData.json");
+      const profileData = require("../data/userProfileData.json");
+      const likesData = require("../data/userProfileData.json");
 
       if (usernameData[id] == undefined) {
         console.log(`[Data] ${id} not found within data.\n`);
