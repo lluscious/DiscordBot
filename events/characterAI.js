@@ -12,13 +12,12 @@ function truncateString(inputString, maxLength) {
 (async () => {
   delete require.cache[require.resolve("../data/config/commandConfigData.json")];
   const {EventCAIMessage} = require("../data/config/commandConfigData.json");
-  
-  if (EventCAIMessage == true){
     try {
     await characterAI.authenticateAsGuest();
     const characterId = "IC-9wkDjyCqGV-_Gjs9i88hM0yUrL8TEdApWOWLAl48";
     const chat = await characterAI.createOrContinueChat(characterId);
     client.on(Events.MessageCreate, async (message) => {
+      if (EventCAIMessage == true){
       try {
         delete require.cache[require.resolve("../data/config/channelConfigData.json")];
         const { BotChatCAIChannel } = require("../data/config/channelConfigData.json");
@@ -30,10 +29,11 @@ function truncateString(inputString, maxLength) {
       } catch (error) {
         console.error("Error handling message:", error);
       }
-    });
+    } else {
+      return;
+    }
+  }
+    );
   } catch (authError) {
     console.error(authError);
-  }} else {
-    return;
-  }
-})();
+  }})();
