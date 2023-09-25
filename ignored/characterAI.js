@@ -2,12 +2,6 @@ const { Events } = require("discord.js");
 const client = require("../client");
 const CharacterAI = require("node_characterai");
 const characterAI = new CharacterAI();
-function truncateString(inputString, maxLength) {
-  if (inputString.length > maxLength) {
-    return inputString.substring(0, maxLength);
-  }
-  return inputString;
-}
 
 (async () => {
   delete require.cache[require.resolve("../data/config/commandConfigData.json")];
