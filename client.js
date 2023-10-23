@@ -68,7 +68,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
 // ---------------------------------  Status  ---------------------------------  //
 client.once(Events.ClientReady, (c) => {
   client.user.setPresence({
-    activities: [{ name: "lyuu and nami studying...", type: ActivityType.Listening }],
+    activities: [{ name: "to the melusine's stories...", type: ActivityType.Listening }],
     status: "dnd",
   });
   console.log(`[Bot] Successfully logged in as ${c.user.tag}\n`);
