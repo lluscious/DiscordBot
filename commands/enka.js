@@ -4,7 +4,7 @@ const wait = require("node:timers/promises").setTimeout;
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("enka")
-    .setDescription("?")
+    .setDescription("Lookup a genshin profile using EnkaAPI")
     .addStringOption((option) =>
       option
         .setName("uid")
@@ -36,15 +36,32 @@ module.exports = {
         })
 
         .then((data) => {
-          const plrinfo = data.playerInfo
+          if (data) {
+          const plrinfo = data.playerInfo;
+
+          const playerIconData = require('../developerTools/Data/defaultEnkaProfileIcon.json')
+          const plrAvatarId = plrinfo.profilePicture.id;
+          const plrAvatarIcon = playerIconData[plrAvatarId].iconPath
+          const enkaAPIAvatarIcon = `https://enka.network/ui/${plrAvatarIcon}.png`
+
+          const playerNamecardData = require('../developerTools/Data/defaultEnkaNamecard.json')
+          const plrNamecardId = plrinfo.nameCardId
+          const plrNamecard= playerNamecardData[plrNamecardId].icon
+          const enkaAPINamecard = `https://enka.network/ui/${plrNamecard}.png`
+
           let sig = plrinfo.signature
           if (sig == undefined){
             sig = 'Signature not set!'
           }
+
           const playerProfileEmbed = new EmbedBuilder()
             .setTitle(`${data.playerInfo.nickname}'s Profile`)
             .setDescription(`${sig}`)
-            .setColor(`#73a6ff`)
+            .setURL(`https://enka.network/u/${data.uid}/`)
+            .setThumbnail(enkaAPIAvatarIcon)
+            .setImage(enkaAPINamecard)
+            .setColor(`#36393e`)
+            .setFooter({text: `✦ Powered by EnkaNetwork`})
             .addFields(
               {name: "UID", value: `${data.uid}`, inline: true},
               {name: 'Adventure Rank', value: `${plrinfo.level}`, inline: true},
@@ -53,6 +70,7 @@ module.exports = {
               {name: 'Spiral Abyss', value: `Floor ${plrinfo.towerFloorIndex} // Chamber ${plrinfo.towerLevelIndex}`, inline: true},
             )
             interaction.reply({embeds:[playerProfileEmbed] })
+          }
         })
 
         .catch((error) => {

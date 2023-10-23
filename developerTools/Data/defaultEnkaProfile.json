@@ -1,0 +1,61 @@
+{
+    "playerInfo": {
+        "nickname": "Toro",
+        "level": 59,
+        "worldLevel": 8,
+        "nameCardId": 210112,
+        "finishAchievementNum": 812,
+        "towerFloorIndex": 12,
+        "towerLevelIndex": 3,
+        "showAvatarInfoList": [
+            {
+                "avatarId": 10000052,
+                "level": 90
+            },
+            {
+                "avatarId": 10000058,
+                "level": 90
+            },
+            {
+                "avatarId": 10000073,
+                "level": 90
+            },
+            {
+                "avatarId": 10000082,
+                "level": 90
+            },
+            {
+                "avatarId": 10000037,
+                "level": 90
+            },
+            {
+                "avatarId": 10000051,
+                "level": 90
+            },
+            {
+                "avatarId": 10000046,
+                "level": 90
+            },
+            {
+                "avatarId": 10000060,
+                "level": 90
+            }
+        ],
+        "showNameCardIdList": [
+            210169,
+            210143,
+            210077,
+            210084,
+            210079,
+            210039,
+            210059,
+            210069,
+            210112
+        ],
+        "profilePicture": {
+            "id": 4600
+        }
+    },
+    "ttl": 60,
+    "uid": "826852873"
+}
