@@ -1,1 +1,11 @@
-{"SlashCommandConfession":true,"SlashCommandDefine":true,"SlashCommandColor":true,"SlashCommandRobloxGame":true,"SlashCommandRobloxUser":true,"SlashCommandUID":true,"SlashCommandGroupModeration":true,"EventCAIMessage":true}
+{
+    "SlashCommandConfession": true,
+    "SlashCommandDefine": true,
+    "SlashCommandColor": true,
+    "SlashCommandRobloxGame": true,
+    "SlashCommandRobloxUser": true,
+    "SlashCommandUID": true,
+    "SlashCommandGroupModeration": true,
+    "SlashCommandEnka": true,
+    "EventCAIMessage": false
+}
